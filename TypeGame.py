@@ -13,7 +13,6 @@ def typegame():
     win.setBackground("white")
 
     #setup countdown timer
-    timer=TimeCounter(10)
     #timer.mainloop()
     #text=texttotype("pathway to directory containing text")
     template=open("text2.txt").read()
@@ -25,13 +24,17 @@ def typegame():
     usrInput = Entry(Point(300,300),50)
     usrInput.setFill("white")
     usrInput.draw(win)
-    timeDisplay = Text(Point(500,0),"0:00")
+    timeDisplay = Text(Point(300,50),"0:00")
     starttime = time.time()
-    while win.checkKey is not None:
-        displaytime(starttime,time.time(),timeDisplay)
+    while True:
+        displayTime(starttime,time.time(),timeDisplay)
+        timeDisplay.undraw()
+        timeDisplay.draw(win)
         if win.checkKey()== '1':
             break
         elif timeisup(starttime,time.time()):
+            timeDisplay.undraw()
+            timeDisplay.draw(win)
             break
     usrtext = usrInput.getText()
     if usrtext == template:
@@ -52,12 +55,12 @@ def texttotype(mypath):
 
 
 def displayTime(starttime,time,timeDisplay):
-    countdown = (int)(time - starttime)
-    text="0:"+str(countdown)
+    countdown = (int)(10 -(time - starttime))
+    text="0:0"+str(countdown)
     timeDisplay.setText(text)
 
 def timeisup(starttime,time):
-    if time-startime<=0:
+    if time-starttime>10:
         return True
     else:
         return False
