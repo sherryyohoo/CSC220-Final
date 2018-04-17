@@ -7,16 +7,14 @@ from os import listdir
 from os.path import isfile, join
 
 """Bugs to fix:
-    1. Text display: 第一个词是乱码
-    2. A better way to draw countdown timer
-    3. Find syntax for <enter>
+
+     Find syntax for <enter>
 
 """
 def test():
     win = GraphWin("typeGame", 600, 600)
     g1 = TypeGame(win)
-    g1.display()
-    if g1.play():
+    if g1.display():
         pass #accelerate
     else :
         pass #decelerate
@@ -31,8 +29,9 @@ class TypeGame():
         self.win = win
         
         #self.template=texttotype("pathway to directory containing text")
-        self.template=open("text2.txt").read()
+        self.template=open("t1.txt").read()
         self.texttemplate = Text(Point(300,100),self.template)
+        self.maxtime=10
 
     
     #input directory containging all the files, return a string that is the text to type
@@ -44,9 +43,15 @@ class TypeGame():
 
 
     def displayTime(self,starttime,time,timeDisplay):
-        countdown = (int)(10 -(time - starttime))
-        text="0:0"+str(countdown)
+        countdown = str((int)(self.maxtime -(time - starttime)))
+        if len(countdown)==1:
+            text="0:0"+countdown
+        else:
+            text="0:"+countdown
         timeDisplay.setText(text)
+
+    def getRemainingTime(self,starttime,time):
+        return (int)(self.maxtime -(time - starttime))
 
     def timeisup(self,starttime,time):
         if time-starttime>10:
@@ -65,21 +70,23 @@ class TypeGame():
         usrInput.draw(win)
         timeDisplay = Text(Point(500,50),"0:00")
         timeDisplay.draw(win)
-
-    def play(self):
+        currenttime=self.maxtime
         starttime = time.time()
         while True:
-            self.displayTime(starttime,time.time(),timeDisplay)
-            timeDisplay.undraw()
-            timeDisplay.draw(win)
-            if win.checkKey()== '1':
-                break
+            if currenttime != self.getRemainingTime(starttime,time.time()):
+                self.displayTime(starttime,time.time(),timeDisplay)
+                timeDisplay.undraw()
+                timeDisplay.draw(win)
+                currenttime = self.getRemainingTime(starttime,time.time())
+                
+            if win.checkKey()=='a':
+                break                              
             elif self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
                 break
         usrtext = usrInput.getText()
-        if usrtext == self.template:
+        if usrtext.strip() == self.template.strip():
             msg = Text(Point(300,500),"Correct! You get the acceleration bonus!")
             result = False
         else:
@@ -90,31 +97,7 @@ class TypeGame():
         return result
     
 
-    
-class TimeCounter():
-        def __init__(self,remaining):
-                self.starttime = time.time()
-                self.remaining = remaining
-                self.countdown()
-                
-        def countdown(self, remaining = None):
-                if remaining is not None:
-                    self.remaining = remaining
-                while True:
-                    self.remaining = self.remaining - 1
-                    self.after(1000, self.countdown)
 
-        def getTime(self):
-            if self.remaining <= 0:
-                return "time's up!"
-            else:
-                return "0:",str(remaining)
-
-        def timeisup(self):
-            if self.remaning <=0:
-                return True
-            else:
-                return False
 
 
 
