@@ -1,0 +1,14 @@
+***Which statement is true about generator in python?
+A. generator is a function that produces a sequence of
+values instead of a single value
+B. generator is a method for solving a complex problem 
+by breaking it down into a collection of simpler subproblems
+c. One kind of objects that can be used with a for loop
+D. None of these above 
+
+
+
+
+
+
+
