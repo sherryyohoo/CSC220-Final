@@ -5,6 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 """Bugs to fix:
+    undraw all when quit
 
 
 """
@@ -30,7 +31,7 @@ class Questions():
         self.question = lines[0]
         self.options = lines[1:5]
         self.answer = lines[5].strip()
-        self.maxtime = 20
+        self.maxtime = 5
 
         
 
@@ -55,7 +56,7 @@ class Questions():
         return (int)(self.maxtime -(time - starttime))
 
     def timeisup(self,starttime,time):
-        if time-starttime>10:
+        if time-starttime>self.maxtime:
             return True
         else:
             return False
@@ -85,33 +86,39 @@ class Questions():
         timeDisplay.draw(win)
         currenttime=self.maxtime
         starttime = time.time()
+        i=1
 
         while True:
-            if currenttime != self.getRemainingTime(starttime,time.time()):
-                self.displayTime(starttime,time.time(),timeDisplay)
-                timeDisplay.undraw()
-                timeDisplay.draw(win)
-                currenttime = self.getRemainingTime(starttime,time.time())
+            
             if self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
                 break
 
-            if win.checkKey()== 'c': #<Enter>
+            if win.checkKey()== "Return": #<Enter>
                 break
  
-            if win.checkKey()=='a':#keys.Down:
+            if win.checkKey()=="Down":#keys.Down:
+                
                 if marker == 4:
                     marker =1
                 else:
                     marker+=1
+                
                 #redraw option box for marker, show it in different color
-            if win.checkKey()=='b':#keys.Up:
+                    
+            if win.checkKey()=="Up":#keys.Up:
                 if marker <= 1:
                     marker =4
                 else:
                     marker-=1
                 #redraw option box for marker, show it in different color
+            
+            if currenttime != self.getRemainingTime(starttime,time.time()):
+                self.displayTime(starttime,time.time(),timeDisplay)
+                timeDisplay.undraw()
+                timeDisplay.draw(win)
+                currenttime = self.getRemainingTime(starttime,time.time())
 
         if str(marker) == self.answer:
             msg = Text(Point(300,500),"Correct! You get the acceleration bonus!")
@@ -131,3 +138,4 @@ class Questions():
 test()
 
 	
+
