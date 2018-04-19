@@ -6,11 +6,7 @@ from graphics import *
 from os import listdir
 from os.path import isfile, join
 
-"""Bugs to fix:
 
-     Find syntax for <enter>
-
-"""
 def test():
     win = GraphWin("typeGame", 600, 600)
     g1 = TypeGame(win)
@@ -31,7 +27,7 @@ class TypeGame():
         #self.template=texttotype("pathway to directory containing text")
         self.template=open("t1.txt").read()
         self.texttemplate = Text(Point(300,100),self.template)
-        self.maxtime=10
+        self.maxtime=45
 
     
     #input directory containging all the files, return a string that is the text to type
@@ -79,7 +75,7 @@ class TypeGame():
                 timeDisplay.draw(win)
                 currenttime = self.getRemainingTime(starttime,time.time())
                 
-            if win.checkKey()=='a':
+            if win.checkKey()=='Return': # <ENTER>
                 break                              
             elif self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
@@ -104,3 +100,5 @@ class TypeGame():
 test()
 
 	
+
+
