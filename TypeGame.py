@@ -90,6 +90,11 @@ class TypeGame():
             result = True
             
         msg.draw(win)
+        time.sleep(2)
+        msg.undraw()
+        self.texttemplate.undraw()
+        usrInput.undraw()
+        timeDisplay.undraw()
         return result
     
 
@@ -100,5 +105,4 @@ class TypeGame():
 test()
 
 	
-
 
