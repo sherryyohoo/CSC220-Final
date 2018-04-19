@@ -1,0 +1,6 @@
+***Which of the following statement is false?
+A. A dictionary in Java is a collection that maintains the order of its
+elements
+B. Everything in Java is an object
+C. Each collection class in Java implements an interface 
+D. Each class in Java is designed for a particular kind of storage

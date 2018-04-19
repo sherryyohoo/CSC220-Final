@@ -1,0 +1,5 @@
+***Which of the following options correctly describe the attributes of Python? 
+A multi-paradigm
+B interpreted language 
+C automatic memory management
+D All of the above 

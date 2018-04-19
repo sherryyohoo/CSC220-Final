@@ -1,0 +1,4 @@
+Python is broadly used and supported. 
+Python is both popular and widely used, as the high rankings in surveys like the Tiobe Index and the large number of GitHub projects using Python attest. 
+Python runs on every major operating system and platform, and most minor ones too. 
+Many major libraries and API-powered services have Python bindings or wrappers, allowing Python to interface freely with those services or make direct use of those libraries. 
