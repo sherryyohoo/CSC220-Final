@@ -5,6 +5,7 @@ B. generator is a method for solving a complex problem
 by breaking it down into a collection of simpler subproblems
 c. One kind of objects that can be used with a for loop
 D. None of these above 
+1
 
 
 

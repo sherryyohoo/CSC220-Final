@@ -4,3 +4,4 @@ elements
 B. Everything in Java is an object
 C. Each collection class in Java implements an interface 
 D. Each class in Java is designed for a particular kind of storage
+1
