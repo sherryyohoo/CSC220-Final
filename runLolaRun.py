@@ -1,5 +1,5 @@
 from graphics import *
-from random import randint
+from random import *
 from math import sqrt
 
 class Lola:
@@ -58,7 +58,7 @@ class Lola:
         return self.distance
     
 class BgAndObj:
-    def __init__(self, win, speed, BgCenter, objRadius, numberOfObjects, backGround,w,
+    def __init__(self, win, speed, BgCenter, objRadius, numberOfObjects,w,
                  BgPicName):
         #w stands for the setting for the coordinate
         #BgPicName is supposed to be the name of the Image
@@ -73,7 +73,7 @@ class BgAndObj:
         #using random function to distributes those objects
         for i in range(numberOfObjects):
             #generate object centers
-            ObjCenter=Point(random.randint(-w,w),random.randint(-w,w))
+            ObjCenter=Point(randint(-w,w),randint(-w,w))
             self.ObjCenters.append(ObjCenter)
             ObjCircle=Circle(ObjCenter,objRadius)
             #put object generated in self.parts
@@ -110,24 +110,44 @@ class BgAndObj:
  
         
 def main():
-    win = GraphWin( 'Run, Lola, run', 500, 500, autoflush=False )
+    win = GraphWin( 'Run, Lola, run', 800, 500, autoflush=False )
     win.setBackground( 'cornflower blue' )
     w = 100
     win.setCoords( -w, -w, w, w )
-    
-    while True:
-        bgAndObj=BgAndObj(....)                       
+
+
+    initialSpeed=10
+    BgCenter=Point(0,0)
+    objRadius=4
+    numberOfObjects=3
+    BgPicName=""
+    gif=[]
+    gif1=Image(Point(0,0), "lola1.gif")
+    gif2=Image(Point(0,0), "lola2.gif")
+    gif3=Image(Point(0,0), "lola3.gif")
+    gif4=Image(Point(0,0), "lola4.gif")
+    gif.append(gif1)
+    gif.append(gif2)
+    gif.append(gif3)
+    gif.append(gif4)
+    number=0
+    BgCenter=Point(0,0)
+    BgPicName="setting1.gif"
+    speed=2
+    n=0
+    while (n<15):
+        
+        bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
+                 BgPicName)
         bgAndObj.MoveDisp( -1, 0 )
 
-        #Lola pics
-        GIF_picture1="XXX1.gif"
-        GIF_picture2="XXX2.gif"
-        GIF_picture1.draw(win)
+        #Lola's gif      
+        gif[number].draw(win)
         time.sleep(1)
-        GIF_picture1.undraw(win)
-        GIF_picture2.draw(win)
+        gif[number].undraw()
+        gif[number+1].draw(win)
         time.sleep(1)
-        GIF_picture2.undraw(win)
+        gif[number+1].undraw()
 
         #lola collides with objects
         #open the game
@@ -135,7 +155,8 @@ def main():
         #get key
         #jump if space is pressed
         #time bar
-        #progress bar 
+        #progress bar
+        n=n+1
 main()
 
         
