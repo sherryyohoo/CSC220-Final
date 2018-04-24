@@ -64,10 +64,10 @@ class Questions():
     def display(self):
         #code to gradually fading out of main game
         win = self.win
-        win.setBackground("white")
+        #win.setBackground("white")
         #qustionBox
         questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box/conversation_box_resize.png")
-        #self.questionbox.draw(win)
+        #questionbox.draw(win)
         questiontext = Text(Point(250,100),self.question)
         questiontext.draw(win)
         answerbox = Image(Point(250,250),"CSC220-Final/ui/conversation_box/conversation_box_resize.png")
@@ -86,7 +86,6 @@ class Questions():
         starttime = time.time()
 
         while True:
-            
             if win.checkKey()== 'Return': #<Enter>
                 break
  
@@ -114,7 +113,7 @@ class Questions():
                 for opt in self.optionlist:
                     opt.undraw()
                     opt.draw()
-
+            
             if currenttime != self.getRemainingTime(starttime,time.time()):
                 self.displayTime(starttime,time.time(),timeDisplay)
                 timeDisplay.undraw()
@@ -123,7 +122,7 @@ class Questions():
             if self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
-                break
+                break   
 
         #if correct
         if str(marker) == self.answer:
