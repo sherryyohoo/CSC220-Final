@@ -19,6 +19,8 @@ class Timer:
     def move_to(self):
         self.clock_image.move(self.speed,0)
 
+
+
 class Progress:
     def _init_(self,x,y,distance,lola,win):
         self.distance = distance
