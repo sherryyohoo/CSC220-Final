@@ -52,7 +52,7 @@ class TypeGame():
 
     #return boolean of whether time is up
     def timeisup(self,starttime,time):
-        if time-starttime>10:
+        if time-starttime>self.maxtime:
             return True
         else:
             return False
@@ -104,12 +104,18 @@ class TypeGame():
         if usrtext.strip() == self.template.strip():
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
             result = False
+            usrbox.undraw()
+            usrbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
+            usrbox.draw(win)
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = True
+            usrbox.undraw()
+            usrbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
+            usrbox.draw(win)
             
         msg.draw(win)
-        time.sleep(2)
+        time.sleep(3)
         #undraw Everything to go back to main game
         msg.undraw()
         texttemplate.undraw()
