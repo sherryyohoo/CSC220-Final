@@ -67,14 +67,6 @@ class Questions():
         #use back screen to mask the main game
         bg=Back_screen(win)
         bg.draw()
-        #qustionBox
-<<<<<<< HEAD
-        questionbox = Image(Point(250,100),"ui/conversation_box/conversation_box_resize.png")
-        #questionbox.draw(win)
-        questiontext = Text(Point(250,100),self.question)
-        questiontext.draw(win)
-        answerbox = Image(Point(250,250),"ui/conversation_box/conversation_box_resize.png")
-=======
         isDominique=random.randint(0,1)
         if isDominique:
             questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
@@ -83,12 +75,7 @@ class Questions():
         questionbox.draw(win)
         questiontext = Text(Point(400,100),self.question)
         questiontext.draw(win)
-<<<<<<< HEAD
-        answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/conversation_box.png")
->>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
-=======
         answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
->>>>>>> 9dca5c29dcfc1ef009d0716afe5d4d909e33949e
         answerbox.draw(win)
         #option box 
 
@@ -149,15 +136,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-<<<<<<< HEAD
-<<<<<<< HEAD
-            answerbox = Image(Point(250,250),"ui/conversation_box/right.png")
-=======
-            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/right.png")
->>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
-=======
             answerbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
->>>>>>> 9dca5c29dcfc1ef009d0716afe5d4d909e33949e
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -168,15 +147,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-<<<<<<< HEAD
-<<<<<<< HEAD
-            answerbox = Image(Point(250,250),"ui/conversation_box/wrong.png")
-=======
-            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/wrong.png")
->>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
-=======
             answerbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
->>>>>>> 9dca5c29dcfc1ef009d0716afe5d4d909e33949e
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -208,34 +179,14 @@ class Option():
 
     def draw(self):
         if self.isSelected:
-<<<<<<< HEAD
-<<<<<<< HEAD
-            self.optionbox = Image(self.position,"ui/conversation_box/button_right_resize.png")
-        else:
-            self.optionbox = Image(self.position,"ui/conversation_box/button_normal_resize.png")
-=======
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_right.png")
-        else:
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_normal.png")
->>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
-=======
             self.optionbox = Image(self.position,"ui/conversation_box_new/button_right.png")
         else:
             self.optionbox = Image(self.position,"ui/conversation_box_new/button_normal.png")
->>>>>>> 9dca5c29dcfc1ef009d0716afe5d4d909e33949e
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
     def drawWrong(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
-        self.optionbox = Image(self.position,"ui/conversation_box/button_wrong.png")
-=======
-        self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_wrong.png")
->>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
-=======
         self.optionbox = Image(self.position,"ui/conversation_box_new/button_wrong.png")
->>>>>>> 9dca5c29dcfc1ef009d0716afe5d4d909e33949e
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
