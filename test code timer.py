@@ -44,6 +44,8 @@ class Progress:
 
     
         
+class Score:
+    def __init__(self,x,y,clock,win):
         
         
 def main():

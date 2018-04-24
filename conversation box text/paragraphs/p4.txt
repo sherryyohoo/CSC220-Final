@@ -1,3 +1,0 @@
-Python is used for data science and machine learning. 
-Sophisticated data analysis has become one of fastest moving areas of IT and one of Python’s star use cases. 
-The vast majority of the libraries used for data science or machine learning have Python interfaces, making the language the most popular high-level command interface to for machine learning libraries and other numerical algorithms.

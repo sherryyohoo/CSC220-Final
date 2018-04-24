@@ -24,7 +24,7 @@ class Questions():
     #set up display and load text
     def __init__(self,win):
         self.win = win
-        f=self.randomQ("CSC220-Final/conversation box text/questions/")
+        f=self.randomQ("conversation box text/questions/")
         #f=open("question1.txt")
         lines = [ line for line in f]
         self.question = lines[0]
@@ -66,11 +66,11 @@ class Questions():
         win = self.win
         #win.setBackground("white")
         #qustionBox
-        questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box/conversation_box_resize.png")
+        questionbox = Image(Point(250,100),"ui/conversation_box/conversation_box_resize.png")
         #questionbox.draw(win)
         questiontext = Text(Point(250,100),self.question)
         questiontext.draw(win)
-        answerbox = Image(Point(250,250),"CSC220-Final/ui/conversation_box/conversation_box_resize.png")
+        answerbox = Image(Point(250,250),"ui/conversation_box/conversation_box_resize.png")
         answerbox.draw(win)
         #option box 
 
@@ -131,7 +131,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(250,250),"CSC220-Final/ui/conversation_box/right.png")
+            answerbox = Image(Point(250,250),"ui/conversation_box/right.png")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -142,7 +142,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(250,250),"CSC220-Final/ui/conversation_box/wrong.png")
+            answerbox = Image(Point(250,250),"ui/conversation_box/wrong.png")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -173,14 +173,14 @@ class Option():
 
     def draw(self):
         if self.isSelected:
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box/button_right_resize.png")
+            self.optionbox = Image(self.position,"ui/conversation_box/button_right_resize.png")
         else:
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box/button_normal_resize.png")
+            self.optionbox = Image(self.position,"ui/conversation_box/button_normal_resize.png")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
     def drawWrong(self):
-        self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box/button_wrong.png")
+        self.optionbox = Image(self.position,"ui/conversation_box/button_wrong.png")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 

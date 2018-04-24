@@ -1,5 +1,0 @@
-Python’s success revolves around several advantages it provides for beginners and experts alike:
-Python is easy to learn. The number of features in the language itself is modest, requiring relatively little investment of time or effort to produce one’s first programs. 
-Python syntax is designed to be readable and straightforward. 
-This simplicity makes Python an ideal teaching language, and allows newcomers to pick it up quickly. 
-Developers spend more time thinking about the problem they’re trying to solve, and less time thinking about language complexities or deciphering code left by others.
