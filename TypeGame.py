@@ -24,9 +24,9 @@ class TypeGame():
     #set up display and load text
     def __init__(self,win):
         self.win = win
-        self.template=self.texttotype("conversation box text/paragraphs/")
+        self.template=self.texttotype("conversation box text/paragraphs/").strip()
         #self.template=open("t1.txt").read()
-        self.maxtime=20
+        self.maxtime=45
 
     
     #input directory containging all the files, return a string that is the text to type
@@ -57,6 +57,15 @@ class TypeGame():
         else:
             return False
     
+    #a display helper that convert a long string to paragraph so that it does not go beyond boundary
+    def strToPara(self,str):
+        #divide template string into 30-char blocks
+        strlist = [self.template[i*30:(i+1)*30] for i in range(len(self.template)//30+1)]
+        for i in range(1,len(strlist)):
+            #replace first occurence of space with enter
+            strlist[i] = strlist[i].replace(" ","\n",1)
+            strlist[0]+=strlist[i]
+        return strlist[0]
 
     def display(self):
         
@@ -72,7 +81,8 @@ class TypeGame():
         else:
             textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
         textbox.draw(win)
-        texttemplate = Text(Point(400,100),self.template)
+        
+        texttemplate = Text(Point(400,120),self.strToPara(self.template))
         texttemplate.draw(win)
         #display usr input
         
