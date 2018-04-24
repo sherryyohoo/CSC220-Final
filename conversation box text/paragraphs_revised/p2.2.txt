@@ -1,0 +1,1 @@
+Python runs on every major operating system and platform. 

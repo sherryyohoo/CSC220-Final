@@ -1,0 +1,1 @@
+Python isn’t just a replacement for shell scripts or batch files. 

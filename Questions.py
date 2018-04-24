@@ -5,8 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 """Bugs to fix:
-        up & down有点卡
-        need to incorporate option box object
+        up & down很卡
 """
 def test():
     win = GraphWin("Questions", 500, 500)
@@ -66,15 +65,27 @@ class Questions():
         win = self.win
         #win.setBackground("white")
         #qustionBox
+<<<<<<< HEAD
         questionbox = Image(Point(250,100),"ui/conversation_box/conversation_box_resize.png")
         #questionbox.draw(win)
         questiontext = Text(Point(250,100),self.question)
         questiontext.draw(win)
         answerbox = Image(Point(250,250),"ui/conversation_box/conversation_box_resize.png")
+=======
+        isDominique=random.randint(0,1)
+        if isDominique:
+            questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_dominique.png")
+        else:
+            questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_jordan.png")
+        questionbox.draw(win)
+        questiontext = Text(Point(250,100),self.question)
+        questiontext.draw(win)
+        answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/conversation_box.png")
+>>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
         answerbox.draw(win)
         #option box 
 
-        self.optionlist = [Option(win,self.options[i],Point(250,200+50*i)) for i in range(4)]
+        self.optionlist = [Option(win,self.options[i],Point(250,250+50*i)) for i in range(4)]
         for opt in self.optionlist:
             opt.draw()
 
@@ -126,23 +137,31 @@ class Questions():
 
         #if correct
         if str(marker) == self.answer:
-            msg = Text(Point(250,450),"Correct! You get the acceleration bonus!")
+            msg = Text(Point(250,475),"Correct! You get the acceleration bonus!")
             result = False
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
+<<<<<<< HEAD
             answerbox = Image(Point(250,250),"ui/conversation_box/right.png")
+=======
+            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/right.png")
+>>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
         #if incorrect
         else:
-            msg = Text(Point(250,450),"Wrong! You will be decelerated!")
+            msg = Text(Point(250,475),"Wrong! You will be decelerated!")
             result = True
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
+<<<<<<< HEAD
             answerbox = Image(Point(250,250),"ui/conversation_box/wrong.png")
+=======
+            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/wrong.png")
+>>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -156,6 +175,7 @@ class Questions():
             opt.undraw()
         questiontext.undraw()
         answerbox.undraw()
+        questionbox.undraw()
 
         return result
     
@@ -173,14 +193,24 @@ class Option():
 
     def draw(self):
         if self.isSelected:
+<<<<<<< HEAD
             self.optionbox = Image(self.position,"ui/conversation_box/button_right_resize.png")
         else:
             self.optionbox = Image(self.position,"ui/conversation_box/button_normal_resize.png")
+=======
+            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_right.png")
+        else:
+            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_normal.png")
+>>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
     def drawWrong(self):
+<<<<<<< HEAD
         self.optionbox = Image(self.position,"ui/conversation_box/button_wrong.png")
+=======
+        self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_wrong.png")
+>>>>>>> 6cb7f6fc54ce537da52a04ab8ee3f3b1ea543b55
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 

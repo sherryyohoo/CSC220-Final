@@ -1,0 +1,1 @@
+This simplicity makes Python an ideal teaching language.

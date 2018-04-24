@@ -1,0 +1,1 @@
+It allows sites to handle up to tens of thousands of requests per second with the right libraries.

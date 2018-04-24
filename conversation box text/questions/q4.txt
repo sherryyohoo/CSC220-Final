@@ -1,6 +1,6 @@
 ***For the following statements, which one is Javascript's attribute?
-A. an object-oriented,platform-independent compiled language
-B.strong static typing and automatic memory management 
+A. Object-oriented, platform-independent compiled language
+B. Strong static typing, automatic memory management 
 C. A lightweight, asynchronous,multi-paradigm
 D. Strong typing 
 3
