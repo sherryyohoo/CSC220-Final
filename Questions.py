@@ -65,8 +65,8 @@ class Questions():
         win = self.win
         #win.setBackground("white")
         #qustionBox
-        idx=random.randint(0,1)
-        if idx:
+        isDominique=random.randint(0,1)
+        if isDominique:
             questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_dominique.png")
         else:
             questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_jordan.png")

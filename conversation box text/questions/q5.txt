@@ -1,7 +1,6 @@
-***Which of the following statement is false?
-A. A dictionary in Java is a collection that maintains the order of its
-elements
+***Which of the following statement is false about Java?
+A. A dictionary maintains the order of its elements
 B. Everything in Java is an object
-C. Each collection class in Java implements an interface 
-D. Each class in Java is designed for a particular kind of storage
+C. Each collection implements an interface 
+D. Each class is designed for a kind of storage
 1
