@@ -1,6 +1,30 @@
 from graphics import *
 from random import *
 from math import sqrt
+import time
+
+'''def Openscene(win,x,y,open1,open2,open3):
+        open1_filename = open1 
+        open1_image = Image(Point(x, y),open1_filename )
+        open1_image.draw(win)
+        time.sleep(3)
+        open1_image.undraw()
+        open2_filename = open2 
+        open2_image = Image(Point(x, y),open2_filename )
+        open2_image.draw(win)
+        time.sleep(8)
+        open2_image.undraw()
+        open3_filename = open2 
+        open3_image = Image(Point(x, y),open3_filename )
+        open3_image.draw(win)
+        time.sleep(2)
+        open3_image.undraw()'''
+        
+
+        
+        
+        
+        
 
 class Lola:
     def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
@@ -114,7 +138,8 @@ def main():
     win.setBackground( 'cornflower blue' )
     w = 100
     win.setCoords( -w, -w, w, w )
-
+    #Openscene(win,400,250,"open1.gif","open2.gif","open1.gif")
+    
 
     initialSpeed=10
     BgCenter=Point(0,0)
@@ -135,6 +160,7 @@ def main():
     BgPicName="setting1.gif"
     speed=2
     n=0
+    
     while (n<15):
         
         bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
@@ -158,7 +184,3 @@ def main():
         #progress bar
         n=n+1
 main()
-
-        
-        
-        
