@@ -5,10 +5,11 @@ import time
 from graphics import *
 from os import listdir
 from os.path import isfile, join
+from back_screen import *
 
 
 def test():
-    win = GraphWin("typeGame", 500, 500)
+    win = GraphWin("typeGame", 800, 500)
     g1 = TypeGame(win)
     if g1.display():
         pass #accelerate
@@ -23,7 +24,7 @@ class TypeGame():
     #set up display and load text
     def __init__(self,win):
         self.win = win
-        self.template=self.texttotype("CSC220-Final/conversation box text/paragraphs/")
+        self.template=self.texttotype("conversation box text/paragraphs/")
         #self.template=open("t1.txt").read()
         self.maxtime=20
 
@@ -58,25 +59,27 @@ class TypeGame():
     
 
     def display(self):
-        #code to gradually fading out of main game
+        
         win = self.win
         #win.setBackground("white")
-
+        #use back screen to mask the main game
+        bg=Back_screen(win)
+        bg.draw()
         #display sample text
         isDominique=random.randint(0,1)
         if isDominique:
-            textbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_dominique.png")
+            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
         else:
-            textbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_jordan.png")
+            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
         textbox.draw(win)
-        texttemplate = Text(Point(250,100),self.template)
+        texttemplate = Text(Point(400,100),self.template)
         texttemplate.draw(win)
         #display usr input
         
         
-        usrbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/conversation_box.png")
+        usrbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
         usrbox.draw(win)
-        usrInput = Entry(Point(250,300),50)
+        usrInput = Entry(Point(400,300),50)
         usrInput.setFill("white")
         usrInput.draw(win)
         timeDisplay = Text(Point(450,50),"0:00")
@@ -84,6 +87,7 @@ class TypeGame():
         currenttime=self.maxtime
         starttime = time.time()
         while True:
+            #update time
             if currenttime != self.getRemainingTime(starttime,time.time()):
                 self.displayTime(starttime,time.time(),timeDisplay)
                 timeDisplay.undraw()
@@ -98,10 +102,10 @@ class TypeGame():
                 break
         usrtext = usrInput.getText()
         if usrtext.strip() == self.template.strip():
-            msg = Text(Point(250,475),"Correct! You get the acceleration bonus!")
+            msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
             result = False
         else:
-            msg = Text(Point(250,475),"Wrong! You will be decelerated!")
+            msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = True
             
         msg.draw(win)
@@ -113,6 +117,7 @@ class TypeGame():
         usrbox.undraw()
         textbox.undraw()
         timeDisplay.undraw()
+        bg.undraw()
         return result
     
 

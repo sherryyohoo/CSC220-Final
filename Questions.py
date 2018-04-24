@@ -3,12 +3,13 @@ import time,random
 from graphics import *
 from os import listdir
 from os.path import isfile, join
+from back_screen import *
 
 """Bugs to fix:
         up & down很卡
 """
 def test():
-    win = GraphWin("Questions", 500, 500)
+    win = GraphWin("Questions", 800, 500)
     g1 = Questions(win)
     if g1.display():
         pass #accelerate
@@ -23,7 +24,7 @@ class Questions():
     #set up display and load text
     def __init__(self,win):
         self.win = win
-        f=self.randomQ("CSC220-Final/conversation box text/questions/")
+        f=self.randomQ("conversation box text/questions/")
         #f=open("question1.txt")
         lines = [ line for line in f]
         self.question = lines[0]
@@ -61,23 +62,25 @@ class Questions():
     
 
     def display(self):
-        #code to gradually fading out of main game
+
         win = self.win
-        #win.setBackground("white")
+        #use back screen to mask the main game
+        bg=Back_screen(win)
+        bg.draw()
         #qustionBox
         isDominique=random.randint(0,1)
         if isDominique:
-            questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_dominique.png")
+            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
         else:
-            questionbox = Image(Point(250,100),"CSC220-Final/ui/conversation_box_new/question_box_jordan.png")
+            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
         questionbox.draw(win)
-        questiontext = Text(Point(250,100),self.question)
+        questiontext = Text(Point(400,100),self.question)
         questiontext.draw(win)
-        answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/conversation_box.png")
+        answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
         answerbox.draw(win)
         #option box 
 
-        self.optionlist = [Option(win,self.options[i],Point(250,250+50*i)) for i in range(4)]
+        self.optionlist = [Option(win,self.options[i],Point(400,250+50*i)) for i in range(4)]
         for opt in self.optionlist:
             opt.draw()
 
@@ -129,23 +132,23 @@ class Questions():
 
         #if correct
         if str(marker) == self.answer:
-            msg = Text(Point(250,475),"Correct! You get the acceleration bonus!")
+            msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
             result = False
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/right.png")
+            answerbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
         #if incorrect
         else:
-            msg = Text(Point(250,475),"Wrong! You will be decelerated!")
+            msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = True
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(250,300),"CSC220-Final/ui/conversation_box_new/wrong.png")
+            answerbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -160,7 +163,7 @@ class Questions():
         questiontext.undraw()
         answerbox.undraw()
         questionbox.undraw()
-
+        bg.undraw()
         return result
     
 
@@ -177,14 +180,14 @@ class Option():
 
     def draw(self):
         if self.isSelected:
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_right.png")
+            self.optionbox = Image(self.position,"ui/conversation_box_new/button_right.png")
         else:
-            self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_normal.png")
+            self.optionbox = Image(self.position,"ui/conversation_box_new/button_normal.png")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
     def drawWrong(self):
-        self.optionbox = Image(self.position,"CSC220-Final/ui/conversation_box_new/button_wrong.png")
+        self.optionbox = Image(self.position,"ui/conversation_box_new/button_wrong.png")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
