@@ -3,38 +3,15 @@ from random import *
 from math import sqrt
 import time
 
-'''def Openscene(win,x,y,open1,open2,open3):
-        open1_filename = open1 
-        open1_image = Image(Point(x, y),open1_filename )
-        open1_image.draw(win)
-        time.sleep(3)
-        open1_image.undraw()
-        open2_filename = open2 
-        open2_image = Image(Point(x, y),open2_filename )
-        open2_image.draw(win)
-        time.sleep(8)
-        open2_image.undraw()
-        open3_filename = open2 
-        open3_image = Image(Point(x, y),open3_filename )
-        open3_image.draw(win)
-        time.sleep(2)
-        open3_image.undraw()'''
-        
-
-        
-        
-        
-        
-
 class Lola:
-    def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
+    def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius,LolaImage):
         self.center=center1
         self.x, self.y= center1.getX(), center1.getY()
         self.speed= speed1
         self.distance= distance1
         self.jumpHeight=jumpHeight1
         self.LolaRadius=LolaRadius
-        self.Lola=Circle(self.center,LolaRadius)
+        self.Lola=Image(center1,LolaImage)
         self.Lola.draw(win)
                        
     #following functions changes some values for this object
@@ -51,14 +28,14 @@ class Lola:
         self.Lola.undraw(win)
         self.y=self.y+self.jumpHeight
         self.center=Point(self.x, self.y)
-        self.Lola=Circle(self.center,LolaRadius)
+        self.Lola=Image(self.center,LolaImage)
         self.Lola.draw(win)
                
     def land(self):
         self.Lola.undraw(win)
         self.y=self.y-self.jumpHeight
         self.center=Point(self.x, self.y)
-        self.Lola=Circle(self.center,LolaRadius)
+        self.Lola=Image(self.center,LolaImage)
         self.Lola.draw(win)
 
         
@@ -66,7 +43,7 @@ class Lola:
         #centerOfObject should be the coordinate of the object on the graph
         #return True if collision happened
         x, y= centerOfObject.getX(), centerOfObject.getY()
-        d=self.LolaRadius()+radiusOfObject
+        d=self.LolaRadius+radiusOfObject
         seperation=sqrt((self.x-x)**2+(self.y-y)**2)
         if (seperation<d):
             return True
@@ -99,7 +76,7 @@ class BgAndObj:
             #generate object centers
             ObjCenter=Point(randint(-w,w),randint(-w,w))
             self.ObjCenters.append(ObjCenter)
-            ObjCircle=Circle(ObjCenter,objRadius)
+            ObjCircle=Circle(ObjCenter,3)
             #put object generated in self.parts
             self.parts.append(ObjCircle)
         #draw object
@@ -119,9 +96,13 @@ class BgAndObj:
 
     #move background and all of the objects 
     def MoveDisp( self, dx, dy ):
-        '''Move BgAndObj by dx,dy, just like move()'''
-        for part in self.parts:
-            part.move( dx, dy )
+        if self.BgX <= -25:           
+            for part in self.parts:
+                part.move( 25, dy )
+            self.BgX=0
+        elif self.BgX > -25:
+            for part in self.parts:
+                part.move( dx, dy )
 
         # Must update instance var:
         self.BgX,self.BgY = self.BgX+dx, self.BgY+dy
@@ -131,15 +112,15 @@ class BgAndObj:
             newX, newY=x+dx, y+dy
             ObjCenter=Point(newX,newY)
 
+
  
         
 def main():
-    win = GraphWin( 'Run, Lola, run', 800, 500, autoflush=False )
+    win = GraphWin( 'Run, Lola, run', 600, 500, autoflush=False )
     win.setBackground( 'cornflower blue' )
     w = 100
     win.setCoords( -w, -w, w, w )
-    #Openscene(win,400,250,"open1.gif","open2.gif","open1.gif")
-    
+
 
     initialSpeed=10
     BgCenter=Point(0,0)
@@ -148,9 +129,13 @@ def main():
     BgPicName=""
     gif=[]
     gif1=Image(Point(0,0), "lola1.gif")
+    gif1.draw(win)
     gif2=Image(Point(0,0), "lola2.gif")
+    gif2.draw(win)
     gif3=Image(Point(0,0), "lola3.gif")
+    gif3.draw(win)
     gif4=Image(Point(0,0), "lola4.gif")
+    gif4.draw(win)
     gif.append(gif1)
     gif.append(gif2)
     gif.append(gif3)
@@ -160,27 +145,36 @@ def main():
     BgPicName="setting1.gif"
     speed=2
     n=0
-    
-    while (n<15):
-        
-        bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
+    center1=Point(0,0)
+    distance1=0
+    speed1=4
+    jumpHeight1=25
+    LolaRadius=70
+    bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
                  BgPicName)
-        bgAndObj.MoveDisp( -1, 0 )
-
-        #Lola's gif      
-        gif[number].draw(win)
-        time.sleep(1)
-        gif[number].undraw()
-        gif[number+1].draw(win)
-        time.sleep(1)
-        gif[number+1].undraw()
-
-        #lola collides with objects
-        #open the game
-        #pause while playing the typing game
-        #get key
-        #jump if space is pressed
-        #time bar
-        #progress bar
-        n=n+1
+    bgAndObj.MoveDisp( -1, 0 )
+    lola=Lola(win, center1, distance1,speed1,jumpHeight1,LolaRadius,gif1)   
+##    while (n<450):
+##            gif[0].draw(win)
+##            time.sleep(1)
+##            gif[0].undraw()
+        #bgAndObj.MoveDisp( -1, 0 )
+##        keyString=win.checkKey()
+##        objectCenters=bgAndObj.getCentersForObjects()
+##        radiusOfObject=bgAndObj.getObjRadius()
+##        if keyString=="space":
+##            for center in objectCenters: 
+##            #lola collides with objects
+##                if lola.collisionChecker(center,radiusOfObject):
+##                    print("collision")
+##                    #open game
+##                        #if score, accelerate
+##                        #if not score, decelerate
+##        #time bar
+##        #progress bar
+##        n=n+1
 main()
+
+        
+        
+        
