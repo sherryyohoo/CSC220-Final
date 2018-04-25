@@ -13,43 +13,6 @@ import itertools
 import sys
 
 
-#------------------
-# HELPER FUNCTION
-#------------------
-
-def Openscene(win,x,y,open1,open2,open3):
-        '''Helper function of the openning of the game, to introduce game background
-        and instructions through showing openning images in sequence
-        x,y: the position to draw the image 
-        open1,open2,open3: the file names of the images that will be displayed at the
-        begining 
-        window: the window on which the images draw'''
-        
-        #call openning images and draw the images
-        open1_image = Image(Point(x, y),open1)
-        open1_image.draw(win)
-        #update the system
-        update()
-        #freeze the system for 3 seconds 
-        time.sleep(3)
-        #undraw the first image, call and draw the second image 
-        open1_image.undraw()
-        open2_image = Image(Point(x, y),open2)
-        open2_image.draw(win)
-        #update the system
-        update()
-        #freeze the system for 13 seconds
-        time.sleep(13)
-        #undraw the second image, call and draw the third image 
-        open2_image.undraw()
-        open3_image = Image(Point(x, y),open3)
-        open3_image.draw(win)
-        #update the system
-        update()
-        #freeze the system for 3 seconds
-        time.sleep(3)
-        #undraw the third image
-        open3_image.undraw()
 
 #---------
 # CLASSES
@@ -174,16 +137,15 @@ class Lola:
         self.Lola.draw(win)
 
 
-    def collisionChecker(self,centerOfObject,radiusOfObject):
+    def collisionChecker(self,obj):
         #centerOfObject should be the coordinate of the object on the graph
         #return True if collision happened
-        x, y= centerOfObject.getX(), centerOfObject.getY()
-        d=self.LolaRadius+radiusOfObject
-        seperation=sqrt((self.x-x)**2+(self.y-y)**2)
-        if (seperation<d):
-            return True
-        else:
-            return False
+        collision=False
+        objcenter = obj.getCenterForObject()
+        if (objcenter.getY()+obj.getObjRadius())<540 and (objcenter.getY()-obj.getObjRadius())>260:
+            if ((objcenter.getX()+obj.getObjRadius())<370 and (objcenter.getX()-obj.getObjRadius())>130):
+                collision=True
+        return collision
         
     #following functions returns values for this object
     def getSpeed(self):
@@ -192,115 +154,141 @@ class Lola:
         return self.center
     def getDistance(self):
         return self.distance
-class BgAndObj:
-    def __init__(self, win, speed, BgCenter, objRadius, numberOfObjects,w,
-                 BgPicName):
+
+
+class Obj:
+    def __init__(self, win):
         #w stands for the setting for the coordinate
-        #BgPicName is supposed to be the name of the Image
-        self.speed=speed
-        self.BgX, self.BgY=BgCenter.getX(),BgCenter.getY()
-        self.BgCenter=BgCenter
-        self.objRadius=objRadius
-        self.ObjCenters=[]
-        self.BgImage=Image(BgCenter,BgPicName)
-        self.parts=[]
-        self.BgImage.draw(win)
-        #using random function to distributes those objects
-        for i in range(numberOfObjects):
-            #generate object centers
-            ObjCenter=Point(randint(-w,w),randint(-w,w))
-            self.ObjCenters.append(ObjCenter)
-            ObjCircle=Image(ObjCenter,"coin.gif")
-            #put object generated in self.parts
-            self.parts.append(ObjCircle)
-        #draw object
-        for part in self.parts:
-            part.draw(win)
         
-    def getBgCenter(self):
-        return self.BgCenter
-    def getObjRadius(self):
-        return self.objRadius
-    def getSpeed(self):
-        return self.speed
+        self.ObjCenter=Point(randint(600,800),randint(100,600)) #might need modification      
+        self.isCollide = False
+        i=randint(0,1)
+        if i: 
+            self.type = "Questions"
+            self.ObjCircle=Image(self.ObjCenter,"coin.gif")
+            self.objRadius=5
+        else: 
+            self.type = "TypeGame"
+            self.ObjCircle=Image(self.ObjCenter,"coin.gif")
+            self.objRadius=5 #modification needed
+        self.ObjCircle.draw(win)
+
     
     #return the center of each object as a list
-    def getCentersForObjects(self):
-        return self.ObjCenters
+    def getCenterForObject(self):
+        return self.ObjCenter
 
-    #move background and all of the objects 
-    def MoveDisp( self, dx, dy ):
-        if self.BgX <= -450:           
-            for i in range(0,len(self.parts)):
-                self.parts[i].move(450, dy)
-                dx=450
-        else:
-            for i in range(0,len(self.parts)):
-                self.parts[i].move( dx, dy )
-                
-        for i in range(0,len(self.parts)):
-            objCenter=self.parts[i].getAnchor()
-            objX,objY=objCenter.getX(), objCenter.getY()
-            objX=objX+dx
-            objY=objY+dy
-            newCenter=Point(objX,objY)
-            self.ObjCenters[i]=newCenter
-            self.BgX=self.BgX+dx
-    
-'''class BgAndObj:
-    def __init__(self, win, speed, BgCenter, objRadius, numberOfObjects,w,
-                 BgPicName):
-        #w stands for the setting for the coordinate
-        #BgPicName is supposed to be the name of the Image
-        self.speed=speed
-        self.BgX, self.BgY=BgCenter.getX(),BgCenter.getY()
-        self.BgCenter=BgCenter
-        self.objRadius=objRadius
-        self.ObjCenters=[]
-        self.BgImage=Image(BgCenter,BgPicName)
-        self.parts=[]
-        self.parts.append(self.BgImage)
-        #using random function to distributes those objects
-        for i in range(numberOfObjects):
-            #generate object centers
-            ObjCenter=Point(randint(-w,w),randint(-w,w))
-            self.ObjCenters.append(ObjCenter)
-            ObjCircle=Circle(ObjCenter,3)
-            #put object generated in self.parts
-            self.parts.append(ObjCircle)
-        #draw object
-        for part in self.parts:
-            part.draw(win)
-        
-    def getBgCenter(self):
-        return self.BgCenter
     def getObjRadius(self):
         return self.objRadius
-    def getSpeed(self):
-        return self.speed
-    
-    #return the center of each object as a list
-    def getCentersForObjects(self):
-        return self.ObjCenters
+
+    def isQuestion(self):
+        return self.type == "Questions"
 
     #move background and all of the objects 
-    def MoveDisp( self, dx, dy ):
-        if self.BgX <= -25:           
-            for i in range(1,len(self.parts)):
-                self.parts[i].move( 25, dy )
-            self.BgX=0
-        elif self.BgX > -25:
-            for i in range(1,len(self.parts)):
-                self.parts[i].move( dx, dy )
+    def MoveObj(self, dx):
+        self.ObjCenter = Point(self.ObjCenter.getX()-dx,self.ObjCenter.getY())
+        self.ObjCircle.move(-dx,0)    
 
-        # Must update instance var:
-        self.BgX,self.BgY = self.BgX+dx, self.BgY+dy
-        self.BgCenter = Point(self.BgX,self.BgY)
-        for ObjCenter in self.ObjCenters:
-            x,y=ObjCenter.getX(),ObjCenter.getY()
-            newX, newY=x+dx, y+dy
-            ObjCenter=Point(newX,newY)'''
+    def undraw(self):
+        self.ObjCircle.undraw()     
 
+
+
+#------------------
+# HELPER FUNCTION
+#------------------
+
+def Openscene(win,x,y,open1,open2,open3):
+        '''Helper function of the openning of the game, to introduce game background
+        and instructions through showing openning images in sequence
+        x,y: the position to draw the image 
+        open1,open2,open3: the file names of the images that will be displayed at the
+        begining 
+        window: the window on which the images draw'''
+        
+        #call openning images and draw the images
+        open1_image = Image(Point(x, y),open1)
+        open1_image.draw(win)
+        #update the system
+        update()
+        #freeze the system for 3 seconds 
+        time.sleep(3)
+        #undraw the first image, call and draw the second image 
+        open1_image.undraw()
+        open2_image = Image(Point(x, y),open2)
+        open2_image.draw(win)
+        #update the system
+        update()
+        #freeze the system for 13 seconds
+        time.sleep(13)
+        #undraw the second image, call and draw the third image 
+        open2_image.undraw()
+        open3_image = Image(Point(x, y),open3)
+        open3_image.draw(win)
+        #update the system
+        update()
+        #freeze the system for 3 seconds
+        time.sleep(3)
+        #undraw the third image
+        open3_image.undraw()
+
+
+#lola gif swap
+def animate(win,lola,status):
+    h=300-20
+    down=False 
+    if status=="space": 
+        h=h+20
+    elif status=="Down":
+        down=True
+    if not down:
+        lola.changeCenter(h)
+        gif1=Image(Point(400,h), "lola1.gif")
+        gif1.draw(win)
+        update()
+        time.sleep(0.15)
+        gif1.undraw()
+        gif2=Image(Point(400,h), "lola2.gif")
+        gif2.draw(win)
+        update()
+        time.sleep(0.15)
+        gif2.undraw()
+        gif3=Image(Point(400,h), "lola3.gif")
+        gif3.draw(win)
+        update()
+        time.sleep(0.1)
+        gif3.undraw()
+        gif4=Image(Point(400,h), "lola4.gif")
+        gif4.draw(win)
+        update()
+        time.sleep(0.1)
+        gif4.undraw()
+    if down:
+        h=-25
+        lola.changeCenter(h)
+        gif1=Image(Point(400,h), "lolaaa3.gif")
+        gif1.draw(win)
+        update()
+        time.sleep(0.1)
+        gif1.undraw()
+        gif2=Image(Point(400,h), "lolaaa2.gif")
+        gif2.draw(win)
+        update()
+        time.sleep(0.1)
+        gif2.undraw()
+        gif3=Image(Point(400,h), "lolaaa1.gif")
+        gif3.draw(win)
+        update()
+        time.sleep(0.1)
+        gif3.undraw()
+        gif2.draw(win)
+        update()
+        time.sleep(0.1)
+        gif2.undraw()
+        gif1.draw(win)
+        update()
+        time.sleep(0.1)
+        gif1.undraw()
 #------
 # MAIN
 #------
@@ -310,148 +298,88 @@ def main():
     win.setBackground( 'cornflower blue' )
     #set up the coordinates of the window 
     w = 100
-    win.setCoords( -w, -w, w, w )
+    #win.setCoords( -w, -w, w, w )
+    #win.setCoords( -400, -250, 400, 250 )
     #Call the Openscene function to begin the game with the openning scenes 
-    Openscene(win,0,0,"open1.gif","open2.gif","open3.gif")
+    #Openscene(win,0,0,"open1.gif","open2.gif","open3.gif")
     #set up Lola's initial speed, background center,object radius, number of objects,
     #background picture names
-    initialSpeed=10
-    BgCenter=Point(0,0)
-    objRadius=5
-    numberOfObjects=2
-    BgPicName=""
-    number=0
-    BgCenter=Point(0,0)
+    
+    
+    #display background picture
+    BgCenter=Point(400,250)
     BgPicName="setting1.gif"
-    speed=2
-    n=0
-    center1=Point(0,0)
-    distance1=0
-    speed1=4
-    jumpHeight1=25
+    BgImage=Image(BgCenter,BgPicName)
+    BgImage.draw(win)
+    
+    #object
+    objRadius=5
+    objs=[]
+    
+
+    #lola
+    lolacenter=Point(400,250)
+    distance=0
+    speed=10
+    jumpHeight=25
     LolaRadius=70
-    bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
-                 BgPicName)
-    bgAndObj.MoveDisp( -1, 0 )
-    lola=Lola(win, center1, distance1,speed1,jumpHeight1,LolaRadius)
-    t = 200 #this represent #*sleep time seconds
-    totalDistance = 200 #To be determined
+    lola=Lola(win, lolacenter, distance,speed,jumpHeight,LolaRadius)
+
+    #total time
+    t = 180 #this represent #*sleep time seconds
+    totalDistance = 150 #To be determined
     #Call the timer class to initialize the time bar 
-    timer = Timer(0,90,"timer.png",win)
+    timer = Timer(400,100,"timer.png",win)
     #Call Progress class to initialize the progress bar 
-    progress = Progress(0,80,totalDistance,"german.png",win)
+    progress = Progress(400,120,totalDistance,"german.png",win)
 
     #while loop to start the game
     #make lola runs 
     while(t>0 and lola.getDistance()<totalDistance):
-        down=False 
-        h=-20
-        bgAndObj.MoveDisp( -10, 0 )
+        # An object appear every 150 distance
+        if lola.getDistance() % 150 == 0:
+            print("Object should appear")
+            obj=Obj(win)
+            objs.append(obj)
+        #move objects according to speed of Lola
+        for obj in objs:
+            obj.MoveObj(lola.getSpeed())
+            print(obj.getCenterForObject().getX())
+            if obj.getCenterForObject().getX()<-400:
+                objs.remove(obj)
+
+        #animate lola: space to jump, down to squat
         status=win.checkKey()
-        if status=="space": 
-            h=h+20
-        elif status=="Down":
-                down=True
-        if not down:
-            lola.changeCenter(h)
-            gif1=Image(Point(0,h), "lola1.gif")
-            gif1.draw(win)
-            update()
-            time.sleep(0.15)
-            gif1.undraw()
-            gif2=Image(Point(0,h), "lola2.gif")
-            gif2.draw(win)
-            update()
-            time.sleep(0.15)
-            gif2.undraw()
-            gif3=Image(Point(0,h), "lola3.gif")
-            gif3.draw(win)
-            update()
-            time.sleep(0.1)
-            gif3.undraw()
-            gif4=Image(Point(0,h), "lola4.gif")
-            gif4.draw(win)
-            update()
-            time.sleep(0.1)
-            gif4.undraw()
-        if down:
-            h=-25
-            lola.changeCenter(h)
-            gif1=Image(Point(0,h), "lolaaa3.gif")
-            gif1.draw(win)
-            update()
-            time.sleep(0.1)
-            gif1.undraw()
-            gif2=Image(Point(0,h), "lolaaa2.gif")
-            gif2.draw(win)
-            update()
-            time.sleep(0.1)
-            gif2.undraw()
-            gif3=Image(Point(0,h), "lolaaa1.gif")
-            gif3.draw(win)
-            update()
-            time.sleep(0.1)
-            gif3.undraw()
-            gif2.draw(win)
-            update()
-            time.sleep(0.1)
-            gif2.undraw()
-            gif1.draw(win)
-            update()
-            time.sleep(0.1)
-            gif1.undraw()
-                
-        '''gif1=Image(Point(0,h), "lola1.gif")
-        gif1.draw(win)
-        update()
-        time.sleep(0.1)
-        gif1.undraw()
-        gif2=Image(Point(0,h), "lola2.gif")
-        gif2.draw(win)
-        update()
-        time.sleep(0.1)
-        gif2.undraw()
-        gif3=Image(Point(0,h), "lola3.gif")
-        gif3.draw(win)
-        update()
-        time.sleep(0.1)
-        gif3.undraw()
-        gif4=Image(Point(0,h), "lola4.gif")
-        gif4.draw(win)
-        update()
-        time.sleep(0.1)
-        gif4.undraw()'''
-        t=t-1
+        animate(win,lola,status)
+    
+        t=t-0.5
         #call the move_to method in Timer class to move the timer for each loop 
         timer.move_to()
         #track the icon's position 
         icon_x = progress.getx()
         #call the move_to method in Progress class to move the icon for each loop
-        progress.move_to(icon_x,distance1)
+        progress.move_to(icon_x,distance)
+
         #collision checker and enters game
-        objectCenters=bgAndObj.getCentersForObjects()
+        #objectCenters=bgAndObj.getCentersForObjects()
         #print("objectYCenters: ", objectCenters)
-        radiusOfObject=bgAndObj.getObjRadius()
-        for center in objectCenters:
+        #radiusOfObject=bgAndObj.getObjRadius()
+        for obj in objs:
             #print("Y for obj: ", center.getY(), "X for obj: ", center.getX(),"h", h)
             #lola collides with objects
-            if lola.collisionChecker(center,radiusOfObject):
+            if lola.collisionChecker(obj):
                 print("collision")
+                if obj.isQuestion():
+                    g=Questions(win)
+                else: 
+                    g = TypeGame(win)
+                if g.display(): #if win
+                    lola.accelerate(1)
+                else: #if lose
+                    lola.decelerate(1)
+                objs.remove(obj)
         
-        #if collide with TypeGame Object
-        if lola.collisionChecker(center,radiusOfObject):
-                g = TypeGame(win)
-                if g.display():
-                        lola.accelerate()
-                else:
-                        lola.decelerate()
-        #if collide with Questions Object
-        if lola.collisionChecker(center,radiusOfObject):
-                g = Questions(win)
-                if g.display():
-                        lola.accelerate()
-                else:
-                        lola.decelerate()
+
 
         #update distance
         lola.changeDistance(lola.getSpeed())
