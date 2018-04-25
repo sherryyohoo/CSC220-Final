@@ -141,6 +141,6 @@ class TypeGame():
 
 
 
-test()
+#test()
 
 	

@@ -8,6 +8,7 @@ from back_screen import *
 """Bugs to fix:
         up & down很卡
 """
+
 def test():
     win = GraphWin("Questions", 800, 500)
     g1 = Questions(win)
@@ -195,6 +196,6 @@ class Option():
         self.text.undraw()
 
 
-test()
+#test()
 
 	

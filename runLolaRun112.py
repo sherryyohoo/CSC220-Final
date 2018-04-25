@@ -1,6 +1,8 @@
 from graphics import *
 from random import *
 from math import sqrt
+from Questions import *
+from TypeGame import *
 import time
 import itertools
 import threading
@@ -79,10 +81,10 @@ class Lola:
         self.LolaRadius=LolaRadius
                        
     #following functions changes some values for this object
-    def accelerate(self,speedValue):
-        self.speed= self.speed+speedValue
-    def decelerate(self,speedValue):
-        self.speed= self.speed-speedValue
+    def accelerate(self):
+        self.speed += self.speed
+    def decelerate(self):
+        self.speed -= self.speed
     def changeDistance(self,distance):
         self.distance= self.distance + distance
 
@@ -204,10 +206,11 @@ def main():
     bgAndObj.MoveDisp( -1, 0 )
     lola=Lola(win, center1, distance1,speed1,jumpHeight1,LolaRadius)
     t = 200 #this represent #*sleep time seconds
+    totalDistance = 200 #To be determined
     timer = Timer(0,90,"timer.png",win)
-    progress = Progress(0,80,1000,"german.png",win)
+    progress = Progress(0,80,totalDistance,"german.png",win)
     
-    while(t>0):
+    while(t>0 and lola.getDistance()<totalDistance):
         h=-20
         bgAndObj.MoveDisp( -10, 0 )
         status=win.checkKey()
@@ -237,8 +240,28 @@ def main():
         timer.move_to()
         x = progress.getx()
         progress.move_to(x,distance1)
+        #collision checker and enters game
+        
+        #if collide with TypeGame Object
+        if lola.collisionChecker(center,radiusOfObject):
+                g = TypeGame(win)
+                if g.display():
+                        lola.accelerate()
+                else:
+                        lola.decelerate()
+        #if collide with Questions Object
+        if lola.collisionChecker(center,radiusOfObject):
+                g = Questions(win)
+                if g.display():
+                        lola.accelerate()
+                else:
+                        lola.decelerate()
 
-main()
+        #update distance
+        lola.changeDistance(lola.getSpeed())
+                
+
+
 ##    while (n<450):
 ##            gif[0].draw(win)
 ##            time.sleep(1)
@@ -257,24 +280,7 @@ main()
 ##        #time bar
 ##        #progress bar
 ##        n=n+1
-#main()
-##done = False
-###here is the animation
-##def animate():
-##    for c in itertools.cycle(['|', '/', '-', '\\']):
-##        if done:
-##            break
-##        sys.stdout.write('\rloading ' + c)
-##        sys.stdout.flush()
-##        time.sleep(0.1)
-##    sys.stdout.write('\rDone!     ')
-##
-##t = threading.Thread(target=animate)
-##t.start()
-##
-###long process here
-##time.sleep(10)
-##done = True
-        
+main()
+
         
         

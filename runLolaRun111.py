@@ -6,6 +6,14 @@ import itertools
 import threading
 import sys
 
+
+
+
+##
+##
+##t= threading.Thread(target=animate)
+##t.start()
+        
 class Lola:
     def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
         self.center=center1
@@ -14,6 +22,7 @@ class Lola:
         self.distance= distance1
         self.jumpHeight=jumpHeight1
         self.LolaRadius=LolaRadius
+        #self.thread = threading.Thread(target = self.animate)
                        
     #following functions changes some values for this object
     def accelerate(self,speedValue):
@@ -58,6 +67,35 @@ class Lola:
         return self.center
     def getDistance(self):
         return self.distance
+    
+    def animate(self):
+        win = GraphWin( 'Run, Lola, run', 600, 500, autoflush=False )
+        win.setBackground( 'cornflower blue' )
+        w = 100
+        win.setCoords( -w, -w, w, w )
+        while True:
+            #bgAndObj.MoveDisp( -10, 0 )
+            gif1=Image(Point(0,-20), "lola1.gif")
+            gif1.draw(win)
+            update()
+            time.sleep(1)
+            gif1.undraw()
+            gif2=Image(Point(0,-20), "lola2.gif")
+            gif2.draw(win)
+            update()
+            time.sleep(1)
+            gif2.undraw()
+            gif3=Image(Point(0,-20), "lola3.gif")
+            gif3.draw(win)
+            update()
+            time.sleep(1)
+            gif3.undraw()
+            gif4=Image(Point(0,-20), "lola4.gif")
+            gif4.draw(win)
+            update()
+            time.sleep(1)
+            gif4.undraw()
+
     
 class BgAndObj:
     def __init__(self, win, speed, BgCenter, objRadius, numberOfObjects,w,
@@ -114,69 +152,108 @@ class BgAndObj:
             ObjCenter=Point(newX,newY)
 
 
-def animate():
+def heightchange():
+    increase = True
+    
+    while 1:
+        if increase:
+            height +=1
+        else:
+            height -=1
+        
+
+        
+def main():
     win = GraphWin( 'Run, Lola, run', 600, 500, autoflush=False )
     win.setBackground( 'cornflower blue' )
     w = 100
     win.setCoords( -w, -w, w, w )
-    while True:
-        gif1=Image(Point(0,-20), "lola1.gif")
+
+
+    initialSpeed=10
+    BgCenter=Point(0,0)
+    objRadius=4
+    numberOfObjects=10
+    BgPicName=""
+    number=0
+    BgCenter=Point(0,0)
+    BgPicName="setting1.gif"
+    speed=2
+    n=0
+    center1=Point(0,0)
+    distance1=0
+    speed1=4
+    jumpHeight1=25
+    LolaRadius=70
+    bgAndObj=BgAndObj(win, speed, BgCenter, objRadius, numberOfObjects,w,
+                 BgPicName)
+    bgAndObj.MoveDisp( -1, 0 )
+    lola=Lola(win, center1, distance1,speed1,jumpHeight1,LolaRadius)
+    global height = -20
+    heightthread = threading.Thread(target = self.heightchange)
+    heightthread.start()
+    
+    while(n<450):
+        bgAndObj.MoveDisp( -10, 0 )
+        gif1=Image(Point(0,height), "lola1.gif")
         gif1.draw(win)
         update()
-        time.sleep(1)
+        time.sleep(0.1)
         gif1.undraw()
-        gif2=Image(Point(0,-20), "lola2.gif")
+        gif2=Image(Point(0,height), "lola2.gif")
         gif2.draw(win)
         update()
-        time.sleep(1)
+        time.sleep(0.1)
         gif2.undraw()
-        gif3=Image(Point(0,-20), "lola3.gif")
+        gif3=Image(Point(0,height), "lola3.gif")
         gif3.draw(win)
         update()
-        time.sleep(1)
+        time.sleep(0.1)
         gif3.undraw()
-        gif4=Image(Point(0,-20), "lola4.gif")
+        gif4=Image(Point(0,height), "lola4.gif")
         gif4.draw(win)
         update()
-        time.sleep(1)
+        time.sleep(0.1)
         gif4.undraw()
-
-    
-#t= threading.Thread(target=animate)
-#t.start()'''
-import threading
- 
-def print_cube(num):
-    """
-    function to print cube of given num
-    """
-    print("Cube: {}".format(num * num * num))
- 
-def print_square(num):
-    """
-    function to print square of given num
-    """
-    print("Square: {}".format(num * num))
- 
-if __name__ == "__main__":
-    # creating thread
-    t1 = threading.Thread(target=animate, args=())
-    #t2 = threading.Thread(target=print_cube, args=(10,))
- 
-    # starting thread 1
-    t1.start()
-    # starting thread 2
-   # t2.start()
- 
-    # wait until thread 1 is completely executed
-    #t1.join()
-    # wait until thread 2 is completely executed
-    #t2.join()
- 
-    # both threads completely executed
-    print("Done!")
-
-
+        n=n+1
+##t= threading.Thread(target=animate)
+##t.start()
+##    while (n<450):
+##            gif[0].draw(win)
+##            time.sleep(1)
+##            gif[0].undraw()
+##        keyString=win.checkKey()
+##        objectCenters=bgAndObj.getCentersForObjects()
+##        radiusOfObject=bgAndObj.getObjRadius()
+##        if keyString=="space":
+##            for center in objectCenters: 
+##            #lola collides with objects
+##                if lola.collisionChecker(center,radiusOfObject):
+##                    print("collision")
+##                    #open game
+##                        #if score, accelerate
+##                        #if not score, decelerate
+##        #time bar
+##        #progress bar
+##        n=n+1
+main()
+##done = False
+###here is the animation
+##def animate():
+##    for c in itertools.cycle(['|', '/', '-', '\\']):
+##        if done:
+##            break
+##        sys.stdout.write('\rloading ' + c)
+##        sys.stdout.flush()
+##        time.sleep(0.1)
+##    sys.stdout.write('\rDone!     ')
+##
+##t = threading.Thread(target=animate)
+##t.start()
+##
+###long process here
+##time.sleep(10)
+##done = True
         
         
         
