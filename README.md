@@ -28,6 +28,11 @@ Press Enter to Enter an answer
 
 When the time expires or Lola reach the end of the path, an image with texts "you win" or "you lose" will display on the screen, and other objects stop moving. Then the game officially ends. 
 
+### Notice
+Mac might not be able to  process png graph while running the code, however windows does not have this issue. If error message happens while executing the code, please convert the pointed png file to 
+gif file. 
+Upon our knowledge, there is no logical errors in the game. 
+
 ### Copyright 
 Sherry Zhenyao Cai reserves the copyright of all cartoon images of Lola and professors.
 The rest of the images come from the internet. 
