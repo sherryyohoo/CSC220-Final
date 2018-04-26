@@ -127,7 +127,7 @@ class TypeGame():
         usrtext = usrInput.getText()
         if usrtext.strip() == self.template.strip():
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
-            result = False
+            result = True
             usrbox.undraw()
             usrbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
             usrbox.draw(win)
@@ -135,7 +135,7 @@ class TypeGame():
 
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
-            result = True
+            result = False
             usrbox.undraw()
             usrbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
             usrbox.draw(win)

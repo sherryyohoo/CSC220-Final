@@ -163,7 +163,7 @@ class Questions():
         #if correct, show message and update display
         if str(marker) == self.answer:
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
-            result = False
+            result = True
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
@@ -174,7 +174,7 @@ class Questions():
         #if incorrect, show message, show correct answer in blue and update display
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
-            result = True
+            result = False
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
