@@ -1,11 +1,11 @@
 ### CSC220-Final Project
- Instructor: Jordan Crouser
- Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
+####Instructor: Jordan Crouser
+####Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
 
 ### Language
 Our game is written in python 3.6
 
-## Initialize the Game Setup
+### Initialize the Game Setup
 Download all the files in the same directory.
 Before running the program, please be sure to download all the needed packages, and be sure to place graphics.py, Questions.py, and TypeGame.py in the same folder as the runLolaRun.py.
 Questions.py and TypeGame.py are written by us specifically for this game.  
