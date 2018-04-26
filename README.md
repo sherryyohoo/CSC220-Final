@@ -1,11 +1,11 @@
-# CSC220-Final Project
-# Instructor: Jordan Crouser
-# Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
+### CSC220-Final Project
+### Instructor: Jordan Crouser
+### Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
 
 ### Language
 Our game is written in python 3.6
 
-##Initialize the Game Setup
+## Initialize the Game Setup
 Download all the files in the same directory.
 Before running the program, please be sure to download all the needed packages, and be sure to place graphics.py, Questions.py, and TypeGame.py in the same folder as the runLolaRun.py.
 Questions.py and TypeGame.py are written by us specifically for this game.  
@@ -14,7 +14,7 @@ Questions.py and TypeGame.py are written by us specifically for this game.
 Run with IDLE: open and run runLolarun.py.
 Run in terminal: cd the directory containing the files, type python runLolarun.py on the command line.
 
-###How to Play the Game
+### How to Play the Game
 The rules of the Game will be displayed on the screen before the game officially starts. 
 Below are the details of the rules: 
 
@@ -28,6 +28,6 @@ Press Enter to Enter an answer
 
 When the time expires or Lola reach the end of the path, an image with texts "you win" or "you lose" will display on the screen, and other objects stop moving. Then the game officially ends. 
 
-###Copyright 
+### Copyright 
 Sherry Zhenyao Cai reserves the copyright of all cartoon images of Lola and professors.
 The rest of the images come from the internet. 
