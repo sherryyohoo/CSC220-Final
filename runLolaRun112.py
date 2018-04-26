@@ -29,16 +29,16 @@ class Timer:
     win: the window on which the images draw'''
     def __init__(self,x,y,clock,win):
         #create a time bar 
-        p1 = Point(x-100,y-5)
-        p2 = Point(x+100,y+5)
+        p1 = Point(x,y-10)
+        p2 = Point(x+400,y+10)
         bar1 = Rectangle(p1,p2)
         bar1.setFill("light green")
         bar1.setOutline("light green")
         #set the moving distance of the timer
         #instance variables for speed 
-        self.speed = 0.1
+        self.speed = 1.67
         #call image timer and draw the image:timer
-        clock_image = Image(Point(x-100, y),clock)
+        clock_image = Image(Point(x, y),clock)
         #instance variables for clock image
         self.clock_image = clock_image
         #draw timer and time bar 
@@ -62,21 +62,21 @@ class Progress:
         #instance variables for distance 
         self.distance = distance
         #create and draw the progress bar 
-        p1 = Point(x-100,y-5)
-        p2 = Point(x+100,y+5)
+        p1 = Point(x,y-10)
+        p2 = Point(x+400,y+10)
         bar1 = Rectangle(p1,p2)
         bar1.setFill("light blue")
         bar1.setOutline("light blue")
         bar1.draw(win)
         #call and draw the icon image 
-        icon_image = Image(Point(x-100, y),icon)
+        icon_image = Image(Point(x, y),icon)
         self.icon_image = icon_image
         icon_image.draw(win)
 
     def getx(self):
         #get the current position of the icon image 
         image_position = self.icon_image.getAnchor()
-        image_x = 100-abs(image_position.getX())
+        image_x = image_position.getX()
         #store the value of the current position 
         return(image_x)
 
@@ -88,7 +88,7 @@ class Progress:
         #based on Lola's progress in the game over the total distance of the game
         #(the current percentage of Lola's progress in the game)
         #in proportion to the length of the bar 
-        icon_curr = (progress/self.distance)*200
+        icon_curr = (progress/self.distance)*400
         #the length of movement (speed) is the icon's (should be) current position
         #minus the origional icon's position 
         speed =  icon_curr-icon_x
@@ -101,12 +101,12 @@ class Progress:
 
 
 class Lola:
-    def __init__(self, win, center, distance,speed,jumpHeight,LolaRadius):
-        self.center=center
-        self.x, self.y= center.getX(), center.getY()
-        self.speed= speed
-        self.distance= distance
-        self.jumpHeight=jumpHeight
+    def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
+        self.center=center1
+        self.x, self.y= center1.getX(), center1.getY()
+        self.speed= speed1
+        self.distance= distance1
+        self.jumpHeight=jumpHeight1
         self.LolaRadius=LolaRadius
                        
      #following functions changes some values for this object
@@ -142,10 +142,11 @@ class Lola:
         #return True if collision happened
         collision=False
         objcenter = obj.getCenterForObject()
-        if (objcenter.getY()+obj.getObjRadius())<(self.y+140) and (objcenter.getY()-obj.getObjRadius())>(self.y-140):
-            if ((objcenter.getX()+obj.getObjRadius())<(self.x+120) and (objcenter.getX()-obj.getObjRadius())>(self.x-120)):
+        if (objcenter.getY()+obj.getObjRadius())>(self.y-140) and (objcenter.getY()-obj.getObjRadius())<(self.y+140):
+            if ((objcenter.getX()+obj.getObjRadius())>(self.x-120) and (objcenter.getX()-obj.getObjRadius())<(self.x+120)):
                 collision=True
-        return collision
+        return collision 
+    
         
     #following functions returns values for this object
     def getSpeed(self):
@@ -160,7 +161,7 @@ class Obj:
     def __init__(self, win):
         #w stands for the setting for the coordinate
         
-        self.ObjCenter=Point(randint(600,800),randint(100,600)) #might need modification      
+        self.ObjCenter=Point(800,randint(100,400)) #might need modification      
         self.isCollide = False
         i=randint(0,1)
         if i: 
@@ -296,15 +297,6 @@ def main():
     #construct the width, height,and background color of the window
     win = GraphWin( 'Run, Lola, run', 800, 500, autoflush=False)
     win.setBackground( 'cornflower blue' )
-    #set up the coordinates of the window 
-    w = 100
-    #win.setCoords( -w, -w, w, w )
-    #win.setCoords( -400, -250, 400, 250 )
-    #Call the Openscene function to begin the game with the openning scenes 
-    #Openscene(win,0,0,"open1.gif","open2.gif","open3.gif")
-    #set up Lola's initial speed, background center,object radius, number of objects,
-    #background picture names
-    
     
     #display background picture
     BgCenter=Point(400,250)
@@ -316,7 +308,6 @@ def main():
     objRadius=5
     objs=[]
     
-
     #lola
     lolacenter=Point(400,250)
     distance=0
@@ -326,28 +317,31 @@ def main():
     lola=Lola(win, lolacenter, distance,speed,jumpHeight,LolaRadius)
 
     #total time
-    t = 180 #this represent #*sleep time seconds
-    totalDistance = 1500 #To be determined
+    t = 90 #this represent #*sleep time seconds
+    totalDistance = 2000 #To be determined
     #Call the timer class to initialize the time bar 
-    timer = Timer(400,100,"timer.png",win)
+    timer = Timer(0,20,"timer.png",win)
     #Call Progress class to initialize the progress bar 
-    progress = Progress(400,120,totalDistance,"german.png",win)
+    progress = Progress(0,60,totalDistance,"german.png",win)
 
     #while loop to start the game
     #make lola runs 
     while(t>0 and lola.getDistance()<totalDistance):
+        print(t)
+        print(lola.getDistance())
         # An object appear every 150 distance
-        if lola.getDistance() % 100 == 0:
+        if t % 10 == 0:
             print("Object should appear")
             obj=Obj(win)
             objs.append(obj)
         #move objects according to speed of Lola
-        for obj in objs:
-            obj.MoveObj(lola.getSpeed())
-            #print(obj.getCenterForObject().getX())
-            if obj.getCenterForObject().getX()<=0:
-                obj.undraw()
-                objs.remove(obj)
+        for ball in objs:
+            ball.MoveObj(lola.getSpeed())
+            if ball.getCenterForObject().getX()<0:
+                objs.remove(ball)
+                ball.undraw()
+             
+                
 
         #animate lola: space to jump, down to squat
         status=win.checkKey()
@@ -359,18 +353,14 @@ def main():
         #track the icon's position 
         icon_x = progress.getx()
         #call the move_to method in Progress class to move the icon for each loop
-        progress.move_to(icon_x,distance)
+        progress.move_to(icon_x,lola.getDistance())
 
         #collision checker and enters game
-        #objectCenters=bgAndObj.getCentersForObjects()
-        #print("objectYCenters: ", objectCenters)
-        #radiusOfObject=bgAndObj.getObjRadius()
-        for obj in objs:
+        for ball2 in objs:
             #print("Y for obj: ", center.getY(), "X for obj: ", center.getX(),"h", h)
             #lola collides with objects
-            if lola.collisionChecker(obj):
-                print("collision")
-                if obj.isQuestion():
+            if lola.collisionChecker(ball2):
+                if ball2.isQuestion():
                     g=Questions(win)
                 else: 
                     g = TypeGame(win)
@@ -378,24 +368,30 @@ def main():
                     lola.accelerate(1)
                 else: #if lose
                     lola.decelerate(1)
-                obj.undraw()
-                objs.remove(obj)
+                objs.remove(ball2)
+                ball2.undraw()
+                   
+           
+                
+            
         
 
 
         #update distance
         lola.changeDistance(lola.getSpeed())
 
-    if lola.getDistance()>totalDistance:
-        #display winning animation
-        print("You win!")
+    #judge whether the player win the game or not
+    if lola.getDistance()>=totalDistance:
+         win_image = Image(Point(400, 250),"win.png")
+         win_image.draw(win)
     else:
-        #display losing animation
-        print("You lose.")
+        lose_image = Image(Point(400,250),"lose.png")
+        lose_image.draw(win)
+        
+   
+        
+        
         
                 
 
 main()
-
-        
-        
