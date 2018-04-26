@@ -1,4 +1,3 @@
-#import pygame as pgimport random
 import time,random
 from graphics import *
 from os import listdir
@@ -6,10 +5,11 @@ from os.path import isfile, join
 from back_screen import *
 
 """Bugs to fix:
-        up & down卡
-        collision checker靠下的coin撞不到
+        up & down not very smooth
+        collision checker did not get coin on lower side
 """
 
+#test function, not called in runLolaRun class
 def test():
     win = GraphWin("Questions", 800, 500)
     g1 = Questions(win)
@@ -19,15 +19,16 @@ def test():
         pass #decelerate
     #some function to quite typing game and redisplay main game
 
-#typing game
+#Qustion class. Every instance contains a multiple choice question.
+#User use Up and Down key to contol selection
+#if correct, Lola accelerate. If wrong, lola decelerate
 class Questions():
-    
-    
-    #set up display and load text
+       
+    #contructor 
     def __init__(self,win):
         self.win = win
+        # pick a random question
         f=self.randomQ("conversation box text/questions/")
-        #f=open("question1.txt")
         lines = [ line for line in f]
         self.question = lines[0]
         self.options = lines[1:5]
@@ -54,6 +55,7 @@ class Questions():
             strlist[0]+=strlist[i]
         return strlist[0]
 
+    #timer display, update the input timeDisplay text
     def displayTime(self,starttime,time,timeDisplay):
         countdown = str((int)(self.maxtime -(time - starttime)))
         if len(countdown)==1:
@@ -62,50 +64,59 @@ class Questions():
             text="0:"+countdown
         timeDisplay.setText(text)
 
+    #get countdown time as seconds in int
     def getRemainingTime(self,starttime,time):
         return (int)(self.maxtime -(time - starttime))
 
+    #return boolean of whether time is up
     def timeisup(self,starttime,time):
         if time-starttime>self.maxtime:
             return True
         else:
             return False
     
-
+    #display question
+    #return a boolean value as result of the game
     def display(self):
-
         win = self.win
         #use back screen to mask the main game
         bg=Back_screen(win)
         bg.draw()
+
+        #randomly load question box image
         isDominique=random.randint(0,1)
         if isDominique:
             questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
         else:
             questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
         questionbox.draw(win)
+
+        #display question
         questiontext = Text(Point(400,100),self.strToPara(self.question))
         questiontext.draw(win)
+
+        #display answer options
         answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
         answerbox.draw(win)
-        #option box 
-
         self.optionlist = [Option(win,self.options[i],Point(400,250+50*i)) for i in range(4)]
         for opt in self.optionlist:
             opt.draw()
 
-        marker =  1
+        #store current selection
+        marker =  0
 
-        timeDisplay = Text(Point(450,50),"0:00")
+        #display countdown timer
+        timeDisplay = Text(Point(700,50),"0:00")
         timeDisplay.draw(win)
         currenttime=self.maxtime
         starttime = time.time()
 
         while True:
+            #Press <Enter> to exit quesiton game
             if win.checkKey()== 'Return': #<Enter>
                 break
- 
-            if win.checkKey()=='Down':#keys.Down:
+            #Press keys.Down to go down in selection
+            elif win.checkKey()=='Down':
                 #deselect previous mark
                 self.optionlist[marker-1].isSelected=False
                 if marker == 4:
@@ -119,7 +130,8 @@ class Questions():
                     opt.draw()
                     update()
 
-            if win.checkKey()=='Up':#keys.Up:
+            #Press keys.Up to go up in selection
+            elif win.checkKey()=='Up':
                 self.optionlist[marker-1].isSelected=False
                 if marker <= 1:
                     marker =4
@@ -132,19 +144,23 @@ class Questions():
                     opt.draw()
                     update()
             
+            #update time
             if currenttime != self.getRemainingTime(starttime,time.time()):
                 self.displayTime(starttime,time.time(),timeDisplay)
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
                 update()
                 currenttime = self.getRemainingTime(starttime,time.time())
+
+            #exit if time is up
             if self.timeisup(starttime,time.time()):
+                timeDisplay.setText("0:00")
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
                 update()
                 break   
 
-        #if correct
+        #if correct, show message and update display
         if str(marker) == self.answer:
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
             result = False
@@ -155,8 +171,7 @@ class Questions():
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
-            update()
-        #if incorrect
+        #if incorrect, show message, show correct answer in blue and update display
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = True
@@ -169,9 +184,12 @@ class Questions():
                 opt.draw()
             self.optionlist[int(self.answer)-1].undraw()
             self.optionlist[int(self.answer)-1].drawWrong()
+
         msg.draw(win)
         update()
         time.sleep(3)
+
+        #undraw Everything to go back to main game
         msg.undraw()
         timeDisplay.undraw()
         for opt in self.optionlist:
@@ -184,8 +202,9 @@ class Questions():
         return result
     
 
-
+#helper class for each multiple choice option
 class Option():
+    #Constructor
     def __init__(self,win,text,position):
         self.win=win
         self.text=Text(position,text)
@@ -194,7 +213,7 @@ class Option():
         self.position=position
         #self.optionbox
 
-
+    #draw box and text according to selection
     def draw(self):
         if self.isSelected:
             self.optionbox = Image(self.position,"ui/conversation_box_new/button_right.png")
@@ -203,11 +222,13 @@ class Option():
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
+    #draw box as blue if it is the correct answer that was not selected by user
     def drawWrong(self):
         self.optionbox = Image(self.position,"ui/conversation_box_new/button_wrong.png")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
+    #undraw text and box
     def undraw(self):
         self.optionbox.undraw()
         self.text.undraw()
