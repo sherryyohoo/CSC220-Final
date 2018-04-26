@@ -30,7 +30,7 @@ class Timer:
     def __init__(self,x,y,clock,win):
         #create a time bar 
         p1 = Point(x,y-10)
-        p2 = Point(x+400,y+10)
+        p2 = Point(x+300,y+10)
         bar1 = Rectangle(p1,p2)
         bar1.setFill("light green")
         bar1.setOutline("light green")
@@ -63,7 +63,7 @@ class Progress:
         self.distance = distance
         #create and draw the progress bar 
         p1 = Point(x,y-10)
-        p2 = Point(x+400,y+10)
+        p2 = Point(x+300,y+10)
         bar1 = Rectangle(p1,p2)
         bar1.setFill("light blue")
         bar1.setOutline("light blue")
@@ -88,7 +88,7 @@ class Progress:
         #based on Lola's progress in the game over the total distance of the game
         #(the current percentage of Lola's progress in the game)
         #in proportion to the length of the bar 
-        icon_curr = (progress/self.distance)*400
+        icon_curr = (progress/self.distance)*300
         #the length of movement (speed) is the icon's (should be) current position
         #minus the origional icon's position 
         speed =  icon_curr-icon_x
