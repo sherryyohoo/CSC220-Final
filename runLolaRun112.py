@@ -59,7 +59,7 @@ class Progress:
     win: the window on which the images draw'''
         
     def __init__(self,x,y,distance,icon,win):
-        #instance variables for distance 
+        #instance variable for distance 
         self.distance = distance
         #create and draw the progress bar 
         p1 = Point(x,y-10)
@@ -101,34 +101,57 @@ class Progress:
 
 
 class Lola:
+    '''Constructor for the Lola class, define Lola's position center,radius,
+    speed(include accelerate and decelerate), distance, movement(jump,land) and
+    collision checker (check whether Lola collides with the object)
+    Lola's speed is also the objects's speed
+    self: a place-holder for specific instances
+    center1: Lola's position center 
+    distance1: Lola's initial distance in the game
+    speed1:Lola's initial speed in the game (Also object's initial speed in the game)
+    jumpHeight1: the height Lola can jump 
+    LolaRadius: Lola's radius from the center 
+    win: the window on which the Lola image draw'''
     def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
+        #instance variable for center 
         self.center=center1
+        #instance variable for position x and y 
         self.x, self.y= center1.getX(), center1.getY()
+        #instance variable for speed 
         self.speed= speed1
+        #instance variable for distance
         self.distance= distance1
+        #instance variable for jumpheight 
         self.jumpHeight=jumpHeight1
+        #instance variable for Lola radius 
         self.LolaRadius=LolaRadius
                        
-     #following functions changes some values for this object
+    #following functions changes some values for this object
+    #accelerate Lola and the object  
     def accelerate(self,speedValue):
         self.speed= self.speed+speedValue
+    #decelerate Lola and the object 
     def decelerate(self,speedValue):
         self.speed= self.speed-speedValue
+    #change Lola's distance 
     def changeDistance(self,distance):
         self.distance= self.distance + distance
+    #change Lola's center in this journey
+    #(not really change Lola image's position,
+    #but instead  change Lola's position center in the total distance)
     def changeCenter(self,y):
         newY=y
         self.Center=Point(self.x,newY)
-
         
-    #not sure if the undraw here is going to work or not
+    #create Lola's movement: jump 
     def jump(self):
         self.Lola.undraw(win)
         self.y=self.y+self.jumpHeight
         self.center=Point(self.x, self.y)
         self.Lola=Image(self.center,LolaImage)
         self.Lola.draw(win)
-               
+
+    # create Lola's movement: land      
     def land(self):
         self.Lola.undraw(win)
         self.y=self.y-self.jumpHeight
@@ -136,19 +159,23 @@ class Lola:
         self.Lola=Image(self.center,LolaImage)
         self.Lola.draw(win)
 
-
+    #check whether Lola collides with the objects or not 
     def collisionChecker(self,obj):
-        #centerOfObject should be the coordinate of the object on the graph
-        #return True if collision happened
+        #set collision as False 
         collision=False
+        #get the object's center 
         objcenter = obj.getCenterForObject()
+        #if the object's center, in addition to its Radius, falls in a range defined below
+        #collision happened
         if (objcenter.getY()+obj.getObjRadius())>(self.y-140) and (objcenter.getY()-obj.getObjRadius())<(self.y+140):
             if ((objcenter.getX()+obj.getObjRadius())>(self.x-120) and (objcenter.getX()-obj.getObjRadius())<(self.x+120)):
+                #return True if collision happened
                 collision=True
+        #otherwise return False
         return collision 
     
         
-    #following functions returns values for this object
+    #following functions returns Lola's speed(also object's speed),center, and distance 
     def getSpeed(self):
         return self.speed
     def getCenter(self):
@@ -158,11 +185,18 @@ class Lola:
 
 
 class Obj:
-    def __init__(self, win):
-        #w stands for the setting for the coordinate
-        
-        self.ObjCenter=Point(800,randint(100,400)) #might need modification      
+    '''Constructor for the Obj class, define objects' position center,
+    and if Lola collides with the object, deterime which type of game(typing game or
+    question game) should pop up
+    self: a place-holder for specific instances
+    win: the window on which the images draw'''
+    def __init__(self, win):  
+        #instance variable for object center 
+        self.ObjCenter=Point(800,randint(100,400))
+        #instance variable of wheather the collision happens or not  
         self.isCollide = False
+        #A condition to determine after collides with object, which type of game will
+        #pops up in random  
         i=randint(0,1)
         if i: 
             self.type = "Questions"
@@ -171,25 +205,26 @@ class Obj:
         else: 
             self.type = "TypeGame"
             self.ObjCircle=Image(self.ObjCenter,"coin.gif")
-            self.objRadius=5 #modification needed
+            self.objRadius=5
+        #draw the object 
         self.ObjCircle.draw(win)
 
     
     #return the center of each object as a list
     def getCenterForObject(self):
         return self.ObjCenter
-
+    #return the object's radius 
     def getObjRadius(self):
         return self.objRadius
-
+    #return the type of game as questions 
     def isQuestion(self):
         return self.type == "Questions"
 
-    #move background and all of the objects 
+    #move all of the objects 
     def MoveObj(self, dx):
         self.ObjCenter = Point(self.ObjCenter.getX()-dx,self.ObjCenter.getY())
         self.ObjCircle.move(-dx,0)    
-
+    #define undraw method 
     def undraw(self):
         self.ObjCircle.undraw()     
 
@@ -205,7 +240,7 @@ def Openscene(win,x,y,open1,open2,open3):
         x,y: the position to draw the image 
         open1,open2,open3: the file names of the images that will be displayed at the
         begining 
-        window: the window on which the images draw'''
+        win: the window on which the images draw'''
         
         #call openning images and draw the images
         open1_image = Image(Point(x, y),open1)
@@ -234,19 +269,31 @@ def Openscene(win,x,y,open1,open2,open3):
         open3_image.undraw()
 
 
-#lola gif swap
+
 def animate(win,lola,status):
+    '''Helper function of Lola's animation, to swap Lola's gif
+       Lola: pass in Lola's class 
+       status: pass in space or Down, decide whether Lola should jump or crouches 
+       win: the window on which the images draw'''
+    #determine Lola's jump height 
     h=300
-    down=False 
+    #set up down as False: Lola does not crouch 
+    down=False
+    #if pass in space, Lola jumps 
     if status=="space": 
         h=h-75
+    #if pass in Down, Lola crouches
     elif status=="Down":
         down=True
+    #If Lola does not crouches
+    #Draw and Swap Lola's gif images 
     if not down:
         lola.changeCenter(h)
         gif1=Image(Point(400,h), "lola1.gif")
         gif1.draw(win)
+        #update the system 
         update()
+        #freeze the system to swap image through draw and undraw  
         time.sleep(0.15)
         gif1.undraw()
         gif2=Image(Point(400,h), "lola2.gif")
@@ -264,12 +311,18 @@ def animate(win,lola,status):
         update()
         time.sleep(0.1)
         gif4.undraw()
+    #if Lola crouches
+    #change the height of Lola
+    #swap other gif images to show the movement of Lola 
     if down:
         h=h+25
+        #change Lola's center 
         lola.changeCenter(h)
         gif1=Image(Point(400,h), "lolaaa3.gif")
         gif1.draw(win)
+        #update system
         update()
+        #freeze the system and swap Lola's image through draw and undraw 
         time.sleep(0.1)
         gif1.undraw()
         gif2=Image(Point(400,h), "lolaaa2.gif")
@@ -290,6 +343,8 @@ def animate(win,lola,status):
         update()
         time.sleep(0.1)
         gif1.undraw()
+
+        
 #------
 # MAIN
 #------
@@ -297,6 +352,9 @@ def main():
     #construct the width, height,and background color of the window
     win = GraphWin( 'Run, Lola, run', 800, 500, autoflush=False)
     win.setBackground( 'cornflower blue' )
+
+    #call openscene function to set up the openning of the game 
+    openning = Openscene(win,400,250,"open1.gif","open2.gif","open3.gif")
     
     #display background picture
     BgCenter=Point(400,250)
@@ -304,49 +362,56 @@ def main():
     BgImage=Image(BgCenter,BgPicName)
     BgImage.draw(win)
     
-    #object
+    #set up object radius and objects list 
     objRadius=5
     objs=[]
     
-    #lola
+    #set Lola's initial values in the game  
     lolacenter=Point(400,250)
     distance=0
     speed=10
     jumpHeight=25
     LolaRadius=70
+    #call Lola class and pass in these values 
     lola=Lola(win, lolacenter, distance,speed,jumpHeight,LolaRadius)
 
-    #total time
-    t = 90 #this represent #*sleep time seconds
-    totalDistance = 2000 #To be determined
+    #set up the total time of the game 
+    t = 90 #this represent # of t *sleep time seconds
+    
+    #set up the total distance of the game 
+    totalDistance = 2000
+    
     #Call the timer class to initialize the time bar 
     timer = Timer(0,20,"timer.png",win)
+    
     #Call Progress class to initialize the progress bar 
     progress = Progress(0,60,totalDistance,"german.png",win)
 
     #while loop to start the game
-    #make lola runs 
+    #while loop will stop when time expires or Lola reach the end of the path 
     while(t>0 and lola.getDistance()<totalDistance):
-        print(t)
-        print(lola.getDistance())
-        # An object appear every 150 distance
+        #print(lola.getDistance())
+        # An object appear every 10 t 
         if t % 10 == 0:
-            print("Object should appear")
+            #print("Object should appear")
             obj=Obj(win)
+            #append object to the object list 
             objs.append(obj)
         #move objects according to speed of Lola
         for ball in objs:
             ball.MoveObj(lola.getSpeed())
+            #if the object is outside the window, remove and undraw it 
             if ball.getCenterForObject().getX()<0:
                 objs.remove(ball)
                 ball.undraw()
              
-                
-
-        #animate lola: space to jump, down to squat
+        #animate lola: space to jump, down to squat(crouch)
+        #check whether space or down has been pressed 
         status=win.checkKey()
+        #call animate function to animate Lola 
         animate(win,lola,status)
-    
+
+        #minus time t for 0.5 for each loop 
         t=t-0.5
         #call the move_to method in Timer class to move the timer for each loop 
         timer.move_to()
@@ -358,40 +423,38 @@ def main():
         #collision checker and enters game
         for ball2 in objs:
             #print("Y for obj: ", center.getY(), "X for obj: ", center.getX(),"h", h)
-            #lola collides with objects
+            #if lola collides with objects
             if lola.collisionChecker(ball2):
+                #assign the type of game and enter the game
+                #by calling Questions or TypeGame (they are py files and should be
+                #placed in the same folder as this file) 
                 if ball2.isQuestion():
                     g=Questions(win)
                 else: 
                     g = TypeGame(win)
-                if g.display(): #if win
+                #if win the game: Lola accerelate 
+                if g.display(): 
                     lola.accelerate(1)
-                else: #if lose
+                #if lose the game: Lola decelerate 
+                else: 
                     lola.decelerate(1)
+                #after collision, remove and undraw the objects 
                 objs.remove(ball2)
                 ball2.undraw()
                    
-           
-                
-            
-        
-
-
-        #update distance
+        #update Lola's distance
         lola.changeDistance(lola.getSpeed())
 
-    #judge whether the player win the game or not
+    #determine whether the player win the game or not
+    #when the time expires(the while loop stop), if Lola's current distance is larger or
+    #equal to the total distance, then player win the game
     if lola.getDistance()>=totalDistance:
          win_image = Image(Point(400, 250),"win.png")
          win_image.draw(win)
+    #otherwise, player lose the game 
     else:
         lose_image = Image(Point(400,250),"lose.png")
         lose_image.draw(win)
-        
-   
-        
-        
-        
-                
+                       
 
 main()
