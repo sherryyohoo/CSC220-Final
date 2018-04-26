@@ -235,14 +235,14 @@ def Openscene(win,x,y,open1,open2,open3):
 
 #lola gif swap
 def animate(win,lola,status):
-    h=300-20
+    h=300
     down=False 
     if status=="space": 
-        h=h+20
+        h=h-75
     elif status=="Down":
         down=True
     if not down:
-        lola.changeCenter(h)
+        #lola.changeCenter(h)
         gif1=Image(Point(400,h), "lola1.gif")
         gif1.draw(win)
         update()
@@ -264,8 +264,8 @@ def animate(win,lola,status):
         time.sleep(0.1)
         gif4.undraw()
     if down:
-        h=-25
-        lola.changeCenter(h)
+        h=h+25
+        #lola.changeCenter(h)
         gif1=Image(Point(400,h), "lolaaa3.gif")
         gif1.draw(win)
         update()
@@ -345,7 +345,7 @@ def main():
         for obj in objs:
             obj.MoveObj(lola.getSpeed())
             print(obj.getCenterForObject().getX())
-            if obj.getCenterForObject().getX()<-400:
+            if obj.getCenterForObject().getX()<=0:
                 objs.remove(obj)
 
         #animate lola: space to jump, down to squat
