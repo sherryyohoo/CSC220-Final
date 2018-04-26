@@ -3,9 +3,9 @@ from graphics import *
 from os import listdir
 from os.path import isfile, join
 from back_screen import *
+from pynput import keyboard
 
 """Bugs to fix:
-        up & down not very smooth
         collision checker did not get coin on lower side
 """
 
@@ -92,7 +92,7 @@ class Questions():
         questionbox.draw(win)
 
         #display question
-        questiontext = Text(Point(400,100),self.strToPara(self.question))
+        questiontext = Text(Point(400,120),self.strToPara(self.question))
         questiontext.draw(win)
 
         #display answer options
@@ -110,13 +110,15 @@ class Questions():
         timeDisplay.draw(win)
         currenttime=self.maxtime
         starttime = time.time()
+        key=""
 
         while True:
+            key=win.checkKey()
             #Press <Enter> to exit quesiton game
-            if win.checkKey()== 'Return': #<Enter>
+            if key== 'Return': #<Enter>
                 break
             #Press keys.Down to go down in selection
-            elif win.checkKey()=='Down':
+            elif key=='Down':
                 #deselect previous mark
                 self.optionlist[marker-1].isSelected=False
                 if marker == 4:
@@ -131,7 +133,7 @@ class Questions():
                     update()
 
             #Press keys.Up to go up in selection
-            elif win.checkKey()=='Up':
+            elif key=='Up':
                 self.optionlist[marker-1].isSelected=False
                 if marker <= 1:
                     marker =4
