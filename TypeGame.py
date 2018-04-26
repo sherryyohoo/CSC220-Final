@@ -125,7 +125,7 @@ class TypeGame():
             usrbox.draw(win)
             
         msg.draw(win)
-        time.sleep(3)
+        time.sleep(5)
         #undraw Everything to go back to main game
         msg.undraw()
         texttemplate.undraw()

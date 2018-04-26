@@ -155,7 +155,7 @@ class Questions():
             self.optionlist[int(self.answer)-1].undraw()
             self.optionlist[int(self.answer)-1].drawWrong()
         msg.draw(win)
-        time.sleep(3)
+        time.sleep(5)
         msg.undraw()
         timeDisplay.undraw()
         for opt in self.optionlist:

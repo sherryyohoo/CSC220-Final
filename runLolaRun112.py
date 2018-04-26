@@ -101,12 +101,12 @@ class Progress:
 
 
 class Lola:
-    def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
-        self.center=center1
-        self.x, self.y= center1.getX(), center1.getY()
-        self.speed= speed1
-        self.distance= distance1
-        self.jumpHeight=jumpHeight1
+    def __init__(self, win, center, distance,speed,jumpHeight,LolaRadius):
+        self.center=center
+        self.x, self.y= center.getX(), center.getY()
+        self.speed= speed
+        self.distance= distance
+        self.jumpHeight=jumpHeight
         self.LolaRadius=LolaRadius
                        
      #following functions changes some values for this object
@@ -142,8 +142,8 @@ class Lola:
         #return True if collision happened
         collision=False
         objcenter = obj.getCenterForObject()
-        if (objcenter.getY()+obj.getObjRadius())<540 and (objcenter.getY()-obj.getObjRadius())>260:
-            if ((objcenter.getX()+obj.getObjRadius())<370 and (objcenter.getX()-obj.getObjRadius())>130):
+        if (objcenter.getY()+obj.getObjRadius())<(self.y+140) and (objcenter.getY()-obj.getObjRadius())>(self.y-140):
+            if ((objcenter.getX()+obj.getObjRadius())<(self.x+120) and (objcenter.getX()-obj.getObjRadius())>(self.x-120)):
                 collision=True
         return collision
         
@@ -242,7 +242,7 @@ def animate(win,lola,status):
     elif status=="Down":
         down=True
     if not down:
-        #lola.changeCenter(h)
+        lola.changeCenter(h)
         gif1=Image(Point(400,h), "lola1.gif")
         gif1.draw(win)
         update()
@@ -265,7 +265,7 @@ def animate(win,lola,status):
         gif4.undraw()
     if down:
         h=h+25
-        #lola.changeCenter(h)
+        lola.changeCenter(h)
         gif1=Image(Point(400,h), "lolaaa3.gif")
         gif1.draw(win)
         update()
@@ -327,7 +327,7 @@ def main():
 
     #total time
     t = 180 #this represent #*sleep time seconds
-    totalDistance = 150 #To be determined
+    totalDistance = 1500 #To be determined
     #Call the timer class to initialize the time bar 
     timer = Timer(400,100,"timer.png",win)
     #Call Progress class to initialize the progress bar 
@@ -337,15 +337,16 @@ def main():
     #make lola runs 
     while(t>0 and lola.getDistance()<totalDistance):
         # An object appear every 150 distance
-        if lola.getDistance() % 150 == 0:
+        if lola.getDistance() % 100 == 0:
             print("Object should appear")
             obj=Obj(win)
             objs.append(obj)
         #move objects according to speed of Lola
         for obj in objs:
             obj.MoveObj(lola.getSpeed())
-            print(obj.getCenterForObject().getX())
+            #print(obj.getCenterForObject().getX())
             if obj.getCenterForObject().getX()<=0:
+                obj.undraw()
                 objs.remove(obj)
 
         #animate lola: space to jump, down to squat
@@ -377,12 +378,20 @@ def main():
                     lola.accelerate(1)
                 else: #if lose
                     lola.decelerate(1)
+                obj.undraw()
                 objs.remove(obj)
         
 
 
         #update distance
         lola.changeDistance(lola.getSpeed())
+
+    if lola.getDistance()>totalDistance:
+        #display winning animation
+        print("You win!")
+    else:
+        #display losing animation
+        print("You lose.")
         
                 
 
