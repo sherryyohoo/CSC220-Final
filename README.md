@@ -1,6 +1,6 @@
 ### CSC220-Final Project
-###Instructor: Jordan Crouser
-###Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
+### Instructor: Jordan Crouser
+### Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
 
 ### Language
 Our game is written in python 3.6
