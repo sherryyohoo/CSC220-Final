@@ -107,6 +107,7 @@ class Questions():
                 for opt in self.optionlist:
                     opt.undraw()
                     opt.draw()
+                    update()
 
             if win.checkKey()=='Up':#keys.Up:
                 self.optionlist[marker-1].isSelected=False
@@ -119,15 +120,18 @@ class Questions():
                 for opt in self.optionlist:
                     opt.undraw()
                     opt.draw()
+                    update()
             
             if currenttime != self.getRemainingTime(starttime,time.time()):
                 self.displayTime(starttime,time.time(),timeDisplay)
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
+                update()
                 currenttime = self.getRemainingTime(starttime,time.time())
             if self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
+                update()
                 break   
 
         #if correct
@@ -141,6 +145,7 @@ class Questions():
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
+            update()
         #if incorrect
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
@@ -155,6 +160,7 @@ class Questions():
             self.optionlist[int(self.answer)-1].undraw()
             self.optionlist[int(self.answer)-1].drawWrong()
         msg.draw(win)
+        update()
         time.sleep(5)
         msg.undraw()
         timeDisplay.undraw()
@@ -164,6 +170,7 @@ class Questions():
         answerbox.undraw()
         questionbox.undraw()
         bg.undraw()
+        update()
         return result
     
 
