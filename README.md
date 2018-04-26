@@ -1,6 +1,6 @@
 ### CSC220-Final Project
-####Instructor: Jordan Crouser
-####Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
+###Instructor: Jordan Crouser
+###Group Members: Nancy Guan, Lucy Yilin Wang, Siyu Lily Qian, Sherry Zhenyao Cai 
 
 ### Language
 Our game is written in python 3.6
@@ -11,8 +11,8 @@ Before running the program, please be sure to download all the needed packages, 
 Questions.py and TypeGame.py are written by us specifically for this game.  
 
 ### How to Run
-Run with IDLE: open and run runLolarun.py.
-Run in terminal: cd the directory containing the files, type python runLolarun.py on the command line.
+Run with IDLE: open and run runLolarun112.py.
+Run in terminal: cd the directory containing the files, type python runLolarun112.py on the command line.
 
 ### How to Play the Game
 The rules of the Game will be displayed on the screen before the game officially starts. 
