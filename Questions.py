@@ -6,7 +6,8 @@ from os.path import isfile, join
 from back_screen import *
 
 """Bugs to fix:
-        up & down很卡
+        up & down卡
+        collision checker靠下的coin撞不到
 """
 
 def test():
@@ -43,6 +44,15 @@ class Questions():
         f = open(files[idx],'r')
         return f
 
+    #a display helper that convert a long string to paragraph so that it does not go beyond boundary
+    def strToPara(self,str):
+        #divide template string into 30-char blocks
+        strlist = [str[i*30:(i+1)*30] for i in range(len(str)//30+1)]
+        for i in range(1,len(strlist)):
+            #replace first occurence of space with enter
+            strlist[i] = strlist[i].replace(" ","\n",1)
+            strlist[0]+=strlist[i]
+        return strlist[0]
 
     def displayTime(self,starttime,time,timeDisplay):
         countdown = str((int)(self.maxtime -(time - starttime)))
@@ -74,7 +84,7 @@ class Questions():
         else:
             questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
         questionbox.draw(win)
-        questiontext = Text(Point(400,100),self.question)
+        questiontext = Text(Point(400,100),self.strToPara(self.question))
         questiontext.draw(win)
         answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
         answerbox.draw(win)
@@ -161,7 +171,7 @@ class Questions():
             self.optionlist[int(self.answer)-1].drawWrong()
         msg.draw(win)
         update()
-        time.sleep(5)
+        time.sleep(3)
         msg.undraw()
         timeDisplay.undraw()
         for opt in self.optionlist:

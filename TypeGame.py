@@ -60,7 +60,7 @@ class TypeGame():
     #a display helper that convert a long string to paragraph so that it does not go beyond boundary
     def strToPara(self,str):
         #divide template string into 30-char blocks
-        strlist = [self.template[i*30:(i+1)*30] for i in range(len(self.template)//30+1)]
+        strlist = [str[i*30:(i+1)*30] for i in range(len(str)//30+1)]
         for i in range(1,len(strlist)):
             #replace first occurence of space with enter
             strlist[i] = strlist[i].replace(" ","\n",1)
@@ -109,7 +109,9 @@ class TypeGame():
             elif self.timeisup(starttime,time.time()):
                 timeDisplay.undraw()
                 timeDisplay.draw(win)
+                update()
                 break
+
         usrtext = usrInput.getText()
         if usrtext.strip() == self.template.strip():
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
@@ -117,15 +119,18 @@ class TypeGame():
             usrbox.undraw()
             usrbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
             usrbox.draw(win)
+            update()
+
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = True
             usrbox.undraw()
             usrbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
             usrbox.draw(win)
-            
+            update()
         msg.draw(win)
-        time.sleep(5)
+        update()
+        time.sleep(3)
         #undraw Everything to go back to main game
         msg.undraw()
         texttemplate.undraw()
@@ -134,6 +139,7 @@ class TypeGame():
         textbox.undraw()
         timeDisplay.undraw()
         bg.undraw()
+        update()
         return result
     
 
