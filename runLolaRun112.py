@@ -112,19 +112,19 @@ class Lola:
     jumpHeight1: the height Lola can jump 
     LolaRadius: Lola's radius from the center 
     win: the window on which the Lola image draw'''
-    def __init__(self, win, center1, distance1,speed1,jumpHeight1,LolaRadius):
+    def __init__(self, win, center, distance,speed,jumpHeight):
         #instance variable for center 
-        self.center=center1
+        self.center=center
         #instance variable for position x and y 
-        self.x, self.y= center1.getX(), center1.getY()
+        self.x, self.y= center.getX(), center.getY()
         #instance variable for speed 
-        self.speed= speed1
+        self.speed= speed
         #instance variable for distance
-        self.distance= distance1
+        self.distance= distance
         #instance variable for jumpheight 
-        self.jumpHeight=jumpHeight1
-        #instance variable for Lola radius 
-        self.LolaRadius=LolaRadius
+        self.jumpHeight=jumpHeight
+        self.Lola=Image(self.center,"ui/lola/1.gif")
+
                        
     #following functions changes some values for this object
     #accelerate Lola and the object  
@@ -142,22 +142,7 @@ class Lola:
     def changeCenter(self,y):
         newY=y
         self.Center=Point(self.x,newY)
-        
-    #create Lola's movement: jump 
-    def jump(self):
-        self.Lola.undraw(win)
-        self.y=self.y+self.jumpHeight
-        self.center=Point(self.x, self.y)
-        self.Lola=Image(self.center,LolaImage)
-        self.Lola.draw(win)
 
-    # create Lola's movement: land      
-    def land(self):
-        self.Lola.undraw(win)
-        self.y=self.y-self.jumpHeight
-        self.center=Point(self.x, self.y)
-        self.Lola=Image(self.center,LolaImage)
-        self.Lola.draw(win)
 
     #check whether Lola collides with the objects or not 
     def collisionChecker(self,obj):
@@ -167,8 +152,9 @@ class Lola:
         objcenter = obj.getCenterForObject()
         #if the object's center, in addition to its Radius, falls in a range defined below
         #collision happened
-        if (objcenter.getY()+obj.getObjRadius())>(self.y-140) and (objcenter.getY()-obj.getObjRadius())<(self.y+140):
-            if ((objcenter.getX()+obj.getObjRadius())>(self.x-120) and (objcenter.getX()-obj.getObjRadius())<(self.x+120)):
+        #have to correct for margrins in gif picture
+        if (objcenter.getY()+obj.getObjRadius())>(self.y-self.Lola.getHeight()/2+12) and (objcenter.getY()-obj.getObjRadius())<(self.y+self.Lola.getHeight()/2-17):
+            if ((objcenter.getX()+obj.getObjRadius())>(self.x-self.Lola.getWidth()/2+34) and (objcenter.getX()-obj.getObjRadius())<(self.x+self.Lola.getWidth()/2-34)):
                 #return True if collision happened
                 collision=True
         #otherwise return False
@@ -192,7 +178,7 @@ class Obj:
     win: the window on which the images draw'''
     def __init__(self, win):  
         #instance variable for object center 
-        self.ObjCenter=Point(800,randint(100,400))
+        self.ObjCenter=Point(800,randint(200,400))
         #instance variable of wheather the collision happens or not  
         self.isCollide = False
         #A condition to determine after collides with object, which type of game will
@@ -201,11 +187,12 @@ class Obj:
         if i: 
             self.type = "Questions"
             self.ObjCircle=Image(self.ObjCenter,"ui/signs/question.gif")
-            self.objRadius=5
+            
         else: 
             self.type = "TypeGame"
             self.ObjCircle=Image(self.ObjCenter,"ui/signs/coin.gif")
-            self.objRadius=5
+         
+        self.objRadius=self.ObjCircle.getWidth()-30
         #draw the object 
         self.ObjCircle.draw(win)
 
@@ -438,9 +425,8 @@ def main():
     distance=0
     speed=10
     jumpHeight=25
-    LolaRadius=70
     #call Lola class and pass in these values 
-    lola=Lola(win, lolacenter, distance,speed,jumpHeight,LolaRadius)
+    lola=Lola(win, lolacenter, distance,speed,jumpHeight)
 
     #set up the total time of the game 
     t = 90 #this represent # of t *sleep time seconds
