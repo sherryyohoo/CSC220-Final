@@ -501,7 +501,7 @@ def main():
                     g = TypeGame(win)
                 #if win the game: Lola accerelate 
                 if g.display(): 
-                    lola.accelerate(1)
+                    lola.accelerate(g.getAccleration())
                 #if lose the game: Lola decelerate 
                 else: 
                     lola.decelerate(1)

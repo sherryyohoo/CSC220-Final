@@ -33,6 +33,7 @@ class Questions():
         self.options = lines[1:5]
         self.answer = lines[5].strip()
         self.maxtime = 20
+        self.remainingTime=0
 
         
 
@@ -74,6 +75,18 @@ class Questions():
         else:
             return False
     
+    #return acceleration of game result
+    #must be called after display
+    def getAcceleration(self):
+        t = self.remainingTime
+        if t<5:
+            acc=1
+        if t<15:
+            acc=2
+        else:
+            acc=3
+        return acc
+
     #display question
     #return a boolean value as result of the game
     def display(self):
@@ -172,6 +185,8 @@ class Questions():
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
+            self.remainingTime = currenttime
+            
         #if incorrect, show message, show correct answer in blue and update display
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
