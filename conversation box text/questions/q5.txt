@@ -1,4 +1,4 @@
-***Which of the following statement is false about Java?
+Which of the following statement is false about Java?
 A. A dictionary maintains the order of its elements
 B. Everything in Java is an object
 C. Each collection implements an interface 

@@ -154,8 +154,8 @@ class Lola:
         #if the object's center, in addition to its Radius, falls in a range defined below
         #collision happened
         #have to correct for margrins in gif picture
-        if (objcenter.getY()+obj.getObjRadius())>(self.y-self.Lola.getHeight()/2+12) and (objcenter.getY()-obj.getObjRadius())<(self.y+self.Lola.getHeight()/2-17):
-            if ((objcenter.getX()+obj.getObjRadius())>(self.x-self.Lola.getWidth()/2+34) and (objcenter.getX()-obj.getObjRadius())<(self.x+self.Lola.getWidth()/2-34)):
+        if (objcenter.getY()+obj.getObjRadius())>(self.y-self.Lola.getHeight()/2+13) and (objcenter.getY()-obj.getObjRadius())<(self.y+self.Lola.getHeight()/2-17):
+            if ((objcenter.getX()+obj.getObjRadius())>(self.x-self.Lola.getWidth()/2+20) and (objcenter.getX()-obj.getObjRadius())<(self.x+self.Lola.getWidth()/2-20)):
                 #return True if collision happened
                 collision=True
         #otherwise return False
@@ -194,7 +194,7 @@ class Obj:
             self.ObjCircle=Image(self.ObjCenter,"ui/signs/keyboard.gif")
 
          
-        self.objRadius=self.ObjCircle.getWidth()
+        self.objRadius=self.ObjCircle.getWidth()/2
 
         #draw the object 
         self.ObjCircle.draw(win)

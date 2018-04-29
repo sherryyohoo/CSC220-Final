@@ -1,4 +1,4 @@
-***For the following statements, which one is Javascript's attribute?
+For the following statements, which one is Javascript's attribute?
 A. Object-oriented, platform-independent compiled language
 B. Strong static typing, automatic memory management 
 C. A lightweight, asynchronous,multi-paradigm

@@ -1,4 +1,4 @@
-***Which statement is true about generator in python?
+Which statement is true about generator in python?
 A. Produces a sequence of values
 B. Breaking Problem down into simpler subproblems
 C. Used with a for loop

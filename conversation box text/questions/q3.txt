@@ -1,4 +1,4 @@
-***What does this chunk of code try to define? def authenticate_and_call(*args,**kwargs):
+What does this chunk of code try to define? def authenticate_and_call(*args,**kwargs):
 A.generators 
 B.Wrappers
 C.comprehensions 
