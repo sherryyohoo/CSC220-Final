@@ -81,9 +81,9 @@ class TypeGame():
         #randomly load question box image
         isDominique=random.randint(0,1)
         if isDominique:
-            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
+            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.gif")
         else:
-            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
+            textbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.gif")
         textbox.draw(win)
 
         #display sample text
@@ -91,7 +91,7 @@ class TypeGame():
         texttemplate.draw(win)
         
         #display usr input
-        usrbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
+        usrbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.gif")
         usrbox.draw(win)
         usrInput = Entry(Point(400,300),50)
         usrInput.setFill("white")
@@ -129,7 +129,7 @@ class TypeGame():
             msg = Text(Point(400,475),"Correct! You get the acceleration bonus!")
             result = True
             usrbox.undraw()
-            usrbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
+            usrbox = Image(Point(400,300),"ui/conversation_box_new/right.gif")
             usrbox.draw(win)
             update()
 
@@ -137,7 +137,7 @@ class TypeGame():
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
             result = False
             usrbox.undraw()
-            usrbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
+            usrbox = Image(Point(400,300),"ui/conversation_box_new/wrong.gif")
             usrbox.draw(win)
             update()
 

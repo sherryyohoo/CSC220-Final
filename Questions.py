@@ -3,7 +3,6 @@ from graphics import *
 from os import listdir
 from os.path import isfile, join
 from back_screen import *
-from pynput import keyboard
 
 """Bugs to fix:
         collision checker did not get coin on lower side
@@ -86,9 +85,9 @@ class Questions():
         #randomly load question box image
         isDominique=random.randint(0,1)
         if isDominique:
-            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.png")
+            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_dominique.gif")
         else:
-            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.png")
+            questionbox = Image(Point(400,100),"ui/conversation_box_new/question_box_jordan.gif")
         questionbox.draw(win)
 
         #display question
@@ -96,7 +95,7 @@ class Questions():
         questiontext.draw(win)
 
         #display answer options
-        answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.png")
+        answerbox = Image(Point(400,300),"ui/conversation_box_new/conversation_box.gif")
         answerbox.draw(win)
         self.optionlist = [Option(win,self.options[i],Point(400,250+50*i)) for i in range(4)]
         for opt in self.optionlist:
@@ -169,7 +168,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(400,300),"ui/conversation_box_new/right.png")
+            answerbox = Image(Point(400,300),"ui/conversation_box_new/right.gif")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -180,7 +179,7 @@ class Questions():
             for opt in self.optionlist:
                 opt.undraw()
             answerbox.undraw()
-            answerbox = Image(Point(400,300),"ui/conversation_box_new/wrong.png")
+            answerbox = Image(Point(400,300),"ui/conversation_box_new/wrong.gif")
             answerbox.draw(win)
             for opt in self.optionlist:
                 opt.draw()
@@ -218,15 +217,15 @@ class Option():
     #draw box and text according to selection
     def draw(self):
         if self.isSelected:
-            self.optionbox = Image(self.position,"ui/conversation_box_new/button_right.png")
+            self.optionbox = Image(self.position,"ui/conversation_box_new/button_right.gif")
         else:
-            self.optionbox = Image(self.position,"ui/conversation_box_new/button_normal.png")
+            self.optionbox = Image(self.position,"ui/conversation_box_new/button_normal.gif")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 
     #draw box as blue if it is the correct answer that was not selected by user
     def drawWrong(self):
-        self.optionbox = Image(self.position,"ui/conversation_box_new/button_wrong.png")
+        self.optionbox = Image(self.position,"ui/conversation_box_new/button_wrong.gif")
         self.optionbox.draw(self.win)
         self.text.draw(self.win)
 

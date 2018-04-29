@@ -200,11 +200,11 @@ class Obj:
         i=randint(0,1)
         if i: 
             self.type = "Questions"
-            self.ObjCircle=Image(self.ObjCenter,"coin.gif")
+            self.ObjCircle=Image(self.ObjCenter,"ui/signs/question.gif")
             self.objRadius=5
         else: 
             self.type = "TypeGame"
-            self.ObjCircle=Image(self.ObjCenter,"coin.gif")
+            self.ObjCircle=Image(self.ObjCenter,"ui/signs/coin.gif")
             self.objRadius=5
         #draw the object 
         self.ObjCircle.draw(win)
@@ -276,7 +276,7 @@ def animate(win,lola,status):
        status: pass in space or Down, decide whether Lola should jump or crouches 
        win: the window on which the images draw'''
     #determine Lola's jump height 
-    h=300
+    h=350
     #set up down as False: Lola does not crouch 
     down=False
     #if pass in space, Lola jumps 
@@ -289,28 +289,63 @@ def animate(win,lola,status):
     #Draw and Swap Lola's gif images 
     if not down:
         lola.changeCenter(h)
-        gif1=Image(Point(400,h), "lola1.gif")
+        gif1=Image(Point(400,h), "ui/lola/1.gif")
         gif1.draw(win)
         #update the system 
         update()
         #freeze the system to swap image through draw and undraw  
-        time.sleep(0.15)
+        time.sleep(0.05)
         gif1.undraw()
-        gif2=Image(Point(400,h), "lola2.gif")
+        gif2=Image(Point(400,h), "ui/lola/2.gif")
         gif2.draw(win)
         update()
-        time.sleep(0.15)
+        time.sleep(0.05)
         gif2.undraw()
-        gif3=Image(Point(400,h), "lola3.gif")
+        gif3=Image(Point(400,h), "ui/lola/3.gif")
         gif3.draw(win)
         update()
-        time.sleep(0.1)
+        time.sleep(0.05)
         gif3.undraw()
-        gif4=Image(Point(400,h), "lola4.gif")
+        gif4=Image(Point(400,h), "ui/lola/4.gif")
         gif4.draw(win)
         update()
-        time.sleep(0.1)
+        time.sleep(0.05)
         gif4.undraw()
+        gif5=Image(Point(400,h), "ui/lola/5.gif")
+        gif5.draw(win)
+        update()
+        time.sleep(0.05)
+        gif5.undraw()
+        gif6=Image(Point(400,h), "ui/lola/6.gif")
+        gif6.draw(win)
+        update()
+        time.sleep(0.05)
+        gif6.undraw()
+        gif7=Image(Point(400,h), "ui/lola/7.gif")
+        gif7.draw(win)
+        update()
+        time.sleep(0.05)
+        gif7.undraw()
+        gif8=Image(Point(400,h), "ui/lola/8.gif")
+        gif8.draw(win)
+        update()
+        time.sleep(0.05)
+        gif8.undraw()
+        gif9=Image(Point(400,h), "ui/lola/9.gif")
+        gif9.draw(win)
+        update()
+        time.sleep(0.05)
+        gif9.undraw()
+        gif10=Image(Point(400,h), "ui/lola/10.gif")
+        gif10.draw(win)
+        update()
+        time.sleep(0.05)
+        gif10.undraw()
+        gif11=Image(Point(400,h), "ui/lola/11.gif")
+        gif11.draw(win)
+        update()
+        time.sleep(0.05)
+        gif11.undraw()
     #if Lola crouches
     #change the height of Lola
     #swap other gif images to show the movement of Lola 
@@ -318,31 +353,63 @@ def animate(win,lola,status):
         h=h+25
         #change Lola's center 
         lola.changeCenter(h)
-        gif1=Image(Point(400,h), "lolaaa3.gif")
+        gif1=Image(Point(400,h), "ui/lola/1.gif")
         gif1.draw(win)
-        #update system
+        #update the system 
         update()
-        #freeze the system and swap Lola's image through draw and undraw 
-        time.sleep(0.1)
+        #freeze the system to swap image through draw and undraw  
+        time.sleep(0.05)
         gif1.undraw()
-        gif2=Image(Point(400,h), "lolaaa2.gif")
+        gif2=Image(Point(400,h), "ui/lola/2.gif")
         gif2.draw(win)
         update()
-        time.sleep(0.1)
+        time.sleep(0.05)
         gif2.undraw()
-        gif3=Image(Point(400,h), "lolaaa1.gif")
+        gif3=Image(Point(400,h), "ui/lola/3.gif")
         gif3.draw(win)
         update()
-        time.sleep(0.1)
+        time.sleep(0.05)
         gif3.undraw()
-        gif2.draw(win)
+        gif4=Image(Point(400,h), "ui/lola/4.gif")
+        gif4.draw(win)
         update()
-        time.sleep(0.1)
-        gif2.undraw()
-        gif1.draw(win)
+        time.sleep(0.05)
+        gif4.undraw()
+        gif5=Image(Point(400,h), "ui/lola/5.gif")
+        gif5.draw(win)
         update()
-        time.sleep(0.1)
-        gif1.undraw()
+        time.sleep(0.05)
+        gif5.undraw()
+        gif6=Image(Point(400,h), "ui/lola/6.gif")
+        gif6.draw(win)
+        update()
+        time.sleep(0.05)
+        gif6.undraw()
+        gif7=Image(Point(400,h), "ui/lola/7.gif")
+        gif7.draw(win)
+        update()
+        time.sleep(0.05)
+        gif7.undraw()
+        gif8=Image(Point(400,h), "ui/lola/8.gif")
+        gif8.draw(win)
+        update()
+        time.sleep(0.05)
+        gif8.undraw()
+        gif9=Image(Point(400,h), "ui/lola/9.gif")
+        gif9.draw(win)
+        update()
+        time.sleep(0.05)
+        gif9.undraw()
+        gif10=Image(Point(400,h), "ui/lola/10.gif")
+        gif10.draw(win)
+        update()
+        time.sleep(0.05)
+        gif10.undraw()
+        gif11=Image(Point(400,h), "ui/lola/11.gif")
+        gif11.draw(win)
+        update()
+        time.sleep(0.05)
+        gif11.undraw()
 
         
 #------
@@ -358,7 +425,7 @@ def main():
     
     #display background picture
     BgCenter=Point(400,250)
-    BgPicName="setting1.gif"
+    BgPicName="ui/settings/setting1.gif"
     BgImage=Image(BgCenter,BgPicName)
     BgImage.draw(win)
     
@@ -367,7 +434,7 @@ def main():
     objs=[]
     
     #set Lola's initial values in the game  
-    lolacenter=Point(400,250)
+    lolacenter=Point(400,400)
     distance=0
     speed=10
     jumpHeight=25
@@ -382,10 +449,10 @@ def main():
     totalDistance = 2000
     
     #Call the timer class to initialize the time bar 
-    timer = Timer(0,20,"timer.png",win)
+    timer = Timer(0,20,"ui/signs/timer.gif",win)
     
     #Call Progress class to initialize the progress bar 
-    progress = Progress(0,60,totalDistance,"german.png",win)
+    progress = Progress(0,60,totalDistance,"ui/signs/german.gif",win)
 
     #while loop to start the game
     #while loop will stop when time expires or Lola reach the end of the path 
@@ -448,13 +515,13 @@ def main():
     #determine whether the player win the game or not
     #when the time expires(the while loop stop), if Lola's current distance is larger or
     #equal to the total distance, then player win the game
-    if lola.getDistance()>=totalDistance:
-         win_image = Image(Point(400, 250),"win.png")
+    '''if lola.getDistance()>=totalDistance:
+         win_image = Image(Point(400, 250),"uiwin.png")
          win_image.draw(win)
     #otherwise, player lose the game 
     else:
         lose_image = Image(Point(400,250),"lose.png")
-        lose_image.draw(win)
+        lose_image.draw(win)'''
                        
 
 main()

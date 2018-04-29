@@ -4,8 +4,7 @@ class Black_screen():
     def __init__(self,width,height,win):
         p1 = Point(0,height)
         p2 = Point(width,0)
-        screen = Rectangle(p1,p2)
-        screen.setFill("black")
+        screen = Image(Point(p1,p2),"ui/settings/office.gif")
         self.screen = screen
         self.win = win
     
