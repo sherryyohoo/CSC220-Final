@@ -26,6 +26,7 @@ class TypeGame():
         self.template=self.texttotype("conversation box text/paragraphs/").strip()
         #self.template=open("t1.txt").read()
         self.maxtime=45
+        self.remainingTime=0
 
     
     #input directory containging all the files, return a list of strings that is the text to type
@@ -68,6 +69,18 @@ class TypeGame():
             #merge processed block into one string
             strlist[0]+=strlist[i]
         return strlist[0]
+
+    #return acceleration of game result
+    #must be called after display
+    def getAcceleration(self):
+        t = self.remainingTime
+        if t<5:
+            acc=1
+        if t<15:
+            acc=2
+        else:
+            acc=3
+        return acc
 
 
     #display typing game
@@ -132,6 +145,7 @@ class TypeGame():
             usrbox = Image(Point(400,300),"ui/conversation_box_new/right.gif")
             usrbox.draw(win)
             update()
+            self.remainingTime = currenttime
 
         else:
             msg = Text(Point(400,475),"Wrong! You will be decelerated!")
