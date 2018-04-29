@@ -141,6 +141,7 @@ class Lola:
     #but instead  change Lola's position center in the total distance)
     def changeCenter(self,y):
         newY=y
+        self.y=y
         self.Center=Point(self.x,newY)
 
 
@@ -190,14 +191,11 @@ class Obj:
             
         else: 
             self.type = "TypeGame"
-<<<<<<< HEAD
             self.ObjCircle=Image(self.ObjCenter,"ui/signs/keyboard.gif")
-            self.objRadius=5
-=======
-            self.ObjCircle=Image(self.ObjCenter,"ui/signs/coin.gif")
+
          
-        self.objRadius=self.ObjCircle.getWidth()-30
->>>>>>> b3c8eee998a2448a520a378c01cb4b0b7bca5aab
+        self.objRadius=self.ObjCircle.getWidth()
+
         #draw the object 
         self.ObjCircle.draw(win)
 
