@@ -8,7 +8,7 @@ class Back_screen():
         p2 = Point(win.getWidth(),0)
         screen = Rectangle(p1,p2)
         screen.setFill('cornflower blue')'''
-        self.screen=Image(p1,"ui/settings/office.png")
+        self.screen=Image(p1,"ui/settings/office.gif")
         self.win = win
     
     def draw(self):
