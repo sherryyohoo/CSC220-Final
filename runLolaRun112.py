@@ -204,7 +204,7 @@ class Obj:
             self.objRadius=5
         else: 
             self.type = "TypeGame"
-            self.ObjCircle=Image(self.ObjCenter,"ui/signs/coin.gif")
+            self.ObjCircle=Image(self.ObjCenter,"ui/signs/keyboard.gif")
             self.objRadius=5
         #draw the object 
         self.ObjCircle.draw(win)
@@ -515,13 +515,13 @@ def main():
     #determine whether the player win the game or not
     #when the time expires(the while loop stop), if Lola's current distance is larger or
     #equal to the total distance, then player win the game
-    '''if lola.getDistance()>=totalDistance:
-         win_image = Image(Point(400, 250),"uiwin.png")
+    if lola.getDistance()>=totalDistance:
+         win_image = Image(Point(400, 300),"ui/signs/win.gif")
          win_image.draw(win)
     #otherwise, player lose the game 
     else:
-        lose_image = Image(Point(400,250),"lose.png")
-        lose_image.draw(win)'''
+        lose_image = Image(Point(400,300),"ui/signs/lose.gif")
+        lose_image.draw(win)
                        
 
 main()
