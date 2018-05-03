@@ -1,0 +1,6 @@
+What is a Graph?
+A. Tuples 
+B. A container of objects 
+C. Networks consist of nodes 
+D. A collection of distinct objects 
+3
