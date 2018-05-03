@@ -443,6 +443,17 @@ def main():
     #Call Progress class to initialize the progress bar 
     progress = Progress(0,60,totalDistance,"ui/signs/german.gif",win)
 
+    #keep track of question and text that has already appeared
+    usedQuestions = []
+    usedText = []
+    #max number of question and text in directory
+    mypath = "conversation box text/paragraphs/"
+    maxq = len([join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))])
+    mypath = "conversation box text/questions/"
+    maxt = len([join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))])
+
+    
+
     #while loop to start the game
     #while loop will stop when time expires or Lola reach the end of the path 
     while(t>0 and lola.getDistance()<totalDistance):
@@ -485,9 +496,23 @@ def main():
                 #by calling Questions or TypeGame (they are py files and should be
                 #placed in the same folder as this file) 
                 if ball2.isQuestion():
-                    g=Questions(win)
+                    g =Questions(win)
+                    #change a question is it has appeared before
+                    while g.getQuestion() in usedQuestions:
+                        g = Questions(win)
+                        #avoid stuck in infintely loop if run out of questions
+                        if len(usedQuestions) ==  maxq:
+                            break
+                    usedQuestions.append(g.getQuestion())
                 else: 
                     g = TypeGame(win)
+                    #change text is it has appeared before
+                    while g.getText() in usedText:
+                        g = TypeGame(win)
+                        #avoid stuck in infintely loop if run out of questions
+                        if len(usedText) ==  maxt:
+                            break
+                    usedText.append(g.getText())
                 #if win the game: Lola accerelate 
                 if g.display(): 
                     lola.accelerate(g.getAcceleration())

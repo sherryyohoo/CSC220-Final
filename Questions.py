@@ -45,6 +45,10 @@ class Questions():
         f = open(files[idx],'r')
         return f
 
+    # return template for repetition comparision
+    def getQuestion(self):
+        return self.question
+
     #a display helper that convert a long string to paragraph so that it does not go beyond boundary
     def strToPara(self,str):
         #divide template string into 30-char blocks
