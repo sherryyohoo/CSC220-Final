@@ -37,6 +37,9 @@ class TypeGame():
         f = open(files[idx],'r')
         return f.read()
 
+    # return template for repetition comparision
+    def getText(self):
+        return self.template
 
     #timer display, update the input timeDisplay text
     def displayTime(self,starttime,time,timeDisplay):
