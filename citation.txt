@@ -1,1 +1,2 @@
 https://www.infoworld.com/article/3204016/python/what-is-python.html
+https://www.datacamp.com/community/tutorials/data-structures-python
