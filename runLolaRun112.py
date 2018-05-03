@@ -411,7 +411,7 @@ def main():
     win.setBackground( 'cornflower blue' )
 
     #call openscene function to set up the openning of the game 
-    #openning = Openscene(win,400,250,"ui/opening/open1.gif","ui/opening/open2.gif","ui/opening/open3.gif")
+    openning = Openscene(win,400,250,"ui/opening/open1.gif","ui/opening/open2.gif","ui/opening/open3.gif")
     
     #display background picture
     BgCenter=Point(400,250)
