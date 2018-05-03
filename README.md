@@ -26,13 +26,13 @@ Press down arrow on the keyboard: Lola crouches
 Press Up/down arrow to choose an answer 
 Press Enter to Enter an answer
 
+Player need to answer multiple choices questions or play the typing game to accelerate or decelerate Lola. 
 When the time expires or Lola reach the end of the path, an image with texts "you win" or "you lose" will display on the screen, and other objects stop moving. Then the game officially ends. 
 
 ### Notice
-Mac might not be able to  process png graph while running the code, however windows does not have this issue. If error message happens while executing the code, please convert the pointed png file to 
-gif file. 
-Upon our knowledge, there is no logical errors in the game. 
+In some computers, there might be strange characters appear in the text of conversation box.
+ 
 
 ### Copyright 
-Sherry Zhenyao Cai reserves the copyright of all cartoon images of Lola and professors.
+Sherry Zhenyao Cai reserves the copyright of all cartoon images of Lola,professors,conversation boxes,win and lose pictures, and background setting images.
 The rest of the images come from the internet. 
